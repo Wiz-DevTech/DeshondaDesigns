@@ -1,0 +1,46 @@
+version: "3.8"
+
+# Add this as its own stack, or merge these two services into your existing
+# compose file alongside Plane / Mattermost / Keycloak / Backstage.
+# It does not need its own nginx container — your host nginx already
+# reverse-proxies the other services, so it will proxy this one too.
+
+services:
+  deshonda-db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: deshonda
+      POSTGRES_USER: deshonda
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - deshonda_db_data:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+    networks:
+      - deshonda_net
+
+  deshonda-api:
+    build: ./server
+    restart: unless-stopped
+    environment:
+      DATABASE_URL: postgres://deshonda:${DB_PASSWORD}@deshonda-db:5432/deshonda
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH}
+      ALLOWED_ORIGIN: ${ALLOWED_ORIGIN}
+      UPLOAD_DIR: /app/uploads
+      PORT: 4000
+    volumes:
+      - deshonda_uploads:/app/uploads
+    depends_on:
+      - deshonda-db
+    ports:
+      - "127.0.0.1:4010:4000"   # bound to localhost only — nginx proxies this, never expose 4000 publicly
+    networks:
+      - deshonda_net
+
+volumes:
+  deshonda_db_data:
+  deshonda_uploads:
+
+networks:
+  deshonda_net:
