@@ -14,9 +14,19 @@ import crypto from "node:crypto";
 import bcrypt from "bcryptjs";
 
 const TOKEN = process.env.CLOUDFLARE_API_TOKEN;
-const ACCOUNT = process.env.CLOUDFLARE_ACCOUNT_ID;
+let ACCOUNT = process.env.CLOUDFLARE_ACCOUNT_ID;
+if (!ACCOUNT) {
+  // fall back to .cf-env written by ci-bootstrap.mjs (non-Actions runs)
+  try {
+    const envFile = await readFile(new URL("../.cf-env", import.meta.url), "utf8");
+    const m = envFile.match(/CLOUDFLARE_ACCOUNT_ID=(\S+)/);
+    if (m) ACCOUNT = m[1];
+  } catch {
+    /* no .cf-env */
+  }
+}
 if (!TOKEN || !ACCOUNT) {
-  console.error("CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID are required");
+  console.error("CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID are required (run ci-bootstrap.mjs first)");
   process.exit(1);
 }
 

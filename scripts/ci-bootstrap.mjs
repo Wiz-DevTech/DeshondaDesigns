@@ -43,10 +43,14 @@ if (!accountId) {
   process.exit(1);
 }
 console.log(`account_id=${accountId}`);
+// persist for later steps in this run: GitHub Actions (GITHUB_ENV) or any
+// local/other CI shell (.cf-env) — ci-seed.mjs reads both.
 if (process.env.GITHUB_ENV) {
   await appendFile(process.env.GITHUB_ENV, `CLOUDFLARE_ACCOUNT_ID=${accountId}\n`);
   console.log("appended CLOUDFLARE_ACCOUNT_ID to GITHUB_ENV");
 }
+await writeFile(new URL("../.cf-env", import.meta.url), `CLOUDFLARE_ACCOUNT_ID=${accountId}\n`);
+console.log("wrote .cf-env");
 
 // 2. workers.dev subdomain (informational)
 try {

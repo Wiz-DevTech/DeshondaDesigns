@@ -38,3 +38,7 @@ uploads/
 
 # Generated Cloudflare worker config (CI writes this from wrangler.template.jsonc)
 /wrangler.jsonc
+/.cf-env
+
+# Cloudflare Pages build output
+/dist/
