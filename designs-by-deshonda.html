@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Designs by Deshonda</title>
+<title>Designs by DeShonda</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
@@ -331,7 +331,7 @@
 <div id="public-view">
 
   <nav>
-    <div class="brand">Designs by <span>Deshonda</span></div>
+    <div class="brand">Designs by <span>DeShonda</span></div>
     <div class="nav-links">
       <a href="#about">About</a>
       <a href="#gallery">Gallery</a>
@@ -344,7 +344,7 @@
   <section class="hero" style="padding-top:20px;">
     <div class="eyebrow">crochet &amp; gift baskets, made with love</div>
     <h1>Handmade <em>Blessings</em>,<br>Gifted with Grace</h1>
-    <p class="sub">I'm Deshonda — mother, grandmother, and crafter of cozy things. Every crochet piece and every gift basket leaves my hands with a prayer stitched into it.</p>
+    <p class="sub">I'm DeShonda — mother, grandmother, and crafter of cozy things. Every crochet piece and every gift basket leaves my hands with a prayer stitched into it.</p>
     <div class="cta-row">
       <button class="btn btn-primary" onclick="document.getElementById('gallery').scrollIntoView()">View the Gallery</button>
       <button class="btn btn-ghost" onclick="document.getElementById('join').scrollIntoView()">Join the List</button>
@@ -357,7 +357,7 @@
   <section id="about">
     <div class="about-wrap">
       <div class="about-portrait">
-        <span class="tag">Deshonda Davis · Owner &amp; Maker</span>
+        <span class="tag">DeShonda Davis · Owner &amp; Maker</span>
       </div>
       <div class="about-copy">
         <div class="eyebrow script">a little about me</div>
@@ -412,7 +412,7 @@
             </div>
             <button type="submit" class="btn btn-purple" style="justify-content:center; margin-top:6px;">Unlock the Gallery</button>
           </form>
-          <div class="gate-note">Your info goes straight to Deshonda — never sold, never spammed. 🌿</div>
+          <div class="gate-note">Your info goes straight to DeShonda — never sold, never spammed. 🌿</div>
         </div>
       </div>
     </div>
@@ -454,7 +454,7 @@
 
   <footer id="join">
     <div class="eyebrow script" style="color:var(--purple-light);">don't miss the holiday drop</div>
-    <h2>Join Deshonda's List</h2>
+    <h2>Join DeShonda's List</h2>
     <p style="opacity:0.85; max-width:44ch; margin:10px auto 0;">Be the first to know about new baskets, crochet drops, and holiday booking dates.</p>
     <form class="foot-form" onsubmit="handleSignup(event)">
       <input type="text" id="signup-name-2" required placeholder="Your name">
@@ -464,7 +464,13 @@
     <div class="foot-links">
       <span>🧶 Crochet</span><span>🧺 Gift Baskets</span><span>📍 Custom Orders Welcome</span>
     </div>
-    <button class="admin-link" onclick="showAdminLock()">Deshonda's Admin Login</button>
+    <button class="admin-link" onclick="showAdminLock()">DeShonda's Admin Login</button>
+    <div class="foot-credit" style="margin-top:36px; font-size:0.78rem; opacity:0.85; line-height:2;">
+      <div>Developed by <a href="https://wizdevtech.com/" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline;">WizDevTech Business Solutions</a></div>
+      <div>✉️ Support Email: <a href="mailto:support@wizdevtech.com" style="color:inherit; text-decoration:underline;">support@wizdevtech.com</a></div>
+      <div>Email DeShonda: <a href="mailto:designsbydeshonda@gmail.com" style="color:inherit; text-decoration:underline;">designsbydeshonda@gmail.com</a></div>
+      <div>© 2026 DeShonda Designs · DeShonda Davis. All rights reserved.</div>
+    </div>
   </footer>
 </div>
 
@@ -472,17 +478,17 @@
 <div id="admin-view">
   <div class="admin-lock" id="admin-lock-screen">
     <div class="eyebrow script" style="text-align:center;">admin only</div>
-    <h3 style="text-align:center;">Deshonda's Dashboard</h3>
+    <h3 style="text-align:center;">DeShonda's Dashboard</h3>
     <p style="color:#6b5a49; font-size:0.88rem; margin-top:8px;">Enter your passcode to manage the gallery, accounting, and your customer list.</p>
     <input type="password" id="admin-pass" placeholder="Passcode">
     <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="tryAdminLogin()">Enter Dashboard</button>
     <button class="exit-admin" style="margin-top:16px;" onclick="exitAdmin()">← Back to public site</button>
-    <p style="font-size:0.72rem; color:#9a8a78; margin-top:18px;">Default passcode: DeshondaBlessed26 — you can change this in the code.</p>
+    <p style="font-size:0.72rem; color:#9a8a78; margin-top:18px;">Default passcode: DeShondaBlessed26 — you can change this in the code.</p>
   </div>
 
   <div class="admin-shell" id="admin-dashboard" style="display:none;">
     <div class="admin-top">
-      <div class="brand">Deshonda's Dashboard</div>
+      <div class="brand">DeShonda's Dashboard</div>
       <button class="exit-admin" onclick="exitAdmin()">← Back to public site</button>
     </div>
 
@@ -561,7 +567,7 @@
 <div class="toast" id="toast"></div>
 
 <script>
-const ADMIN_PASSCODE = "DeshondaBlessed26";
+const ADMIN_PASSCODE = "DeShondaBlessed26";
 let GALLERY = [];
 let SIGNUPS = [];
 let LEDGER = [];

@@ -1,4 +1,4 @@
-name: Deploy Deshonda Designs to Cloudflare Workers
+name: Deploy DeShonda Designs to Cloudflare Workers
 
 on:
   push:

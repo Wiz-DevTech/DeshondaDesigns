@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * CI bootstrap for the Deshonda worker.
+ * CI bootstrap for the DeShonda worker.
  * Uses the Cloudflare API token (from GitHub secrets) to:
  *   1. Resolve the account id
  *   2. Ensure the D1 database "deshonda-db" exists

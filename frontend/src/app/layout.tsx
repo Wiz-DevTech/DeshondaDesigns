@@ -24,7 +24,7 @@ const caveat = Caveat({
 });
 
 export const metadata: Metadata = {
-  title: "Designs by Deshonda",
+  title: "Designs by DeShonda",
   description: "Handmade crochet & gift baskets, made with love.",
 };
 

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * CI seed for the Deshonda worker.
+ * CI seed for the DeShonda worker.
  * Applies worker/schema.sql to the remote D1 database (idempotent) and seeds
  * the meta table with:
  *   - JWT_SECRET          (random, generated once)
@@ -110,7 +110,7 @@ if (adminPassword) {
   console.log("");
   console.log(`  ${adminPassword}`);
   console.log("");
-  console.log("Hand this to Deshonda. To reset later: delete the");
+  console.log("Hand this to DeShonda. To reset later: delete the");
   console.log("ADMIN_PASSWORD_HASH row from the D1 meta table, then re-run.");
   console.log("==============================================================");
 }

@@ -1,4 +1,4 @@
-// Client-side API client for the Deshonda worker API.
+// Client-side API client for the DeShonda worker API.
 // Same origin by default (NEXT_PUBLIC_API_URL="" at build) — the worker
 // serves both the static site and /api/*.
 const BASE = process.env.NEXT_PUBLIC_API_URL ?? "";

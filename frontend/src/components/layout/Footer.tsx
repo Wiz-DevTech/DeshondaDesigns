@@ -30,7 +30,7 @@ export default function Footer() {
       <div className="font-script text-[var(--purple-light)] text-xl mb-1">
         don&apos;t miss the holiday drop
       </div>
-      <h2 className="text-3xl text-[var(--paper)]">Join Deshonda&apos;s List</h2>
+      <h2 className="text-3xl text-[var(--paper)]">Join DeShonda&apos;s List</h2>
       <p className="opacity-85 max-w-[44ch] mx-auto mt-2 text-sm">
         Be the first to know about new baskets, crochet drops, and holiday booking dates.
       </p>

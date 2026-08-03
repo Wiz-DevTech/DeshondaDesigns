@@ -1,4 +1,4 @@
--- Designs by Deshonda — production schema
+-- Designs by DeShonda — production schema
 
 CREATE TABLE IF NOT EXISTS gallery (
   id SERIAL PRIMARY KEY,

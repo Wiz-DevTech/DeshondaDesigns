@@ -5,6 +5,7 @@ import Blessing from "@/components/home/Blessing";
 import Gallery from "@/components/home/Gallery";
 import Occasions from "@/components/home/Occasions";
 import ShopSection from "@/components/shop/ShopSection";
+import CashAppPay from "@/components/shop/CashAppPay";
 import Share from "@/components/home/Share";
 import Footer from "@/components/layout/Footer";
 
@@ -18,6 +19,7 @@ export default function Home() {
       <Gallery />
       <Occasions />
       <ShopSection />
+      <CashAppPay />
       <Share />
       <Footer />
     </main>

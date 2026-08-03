@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useShop } from "@/context/ShopContext";
 import { formatPrice } from "@/lib/api";
+import CashAppPay from "@/components/shop/CashAppPay";
 
 export default function CartDrawer() {
   const {
@@ -129,6 +130,13 @@ export default function CartDrawer() {
           >
             {busy ? "Taking you to checkout…" : "Checkout"}
           </button>
+
+          <div className="flex items-center gap-3 text-xs opacity-50">
+            <span className="grow h-px bg-black/15" /> or pay with Cash App{" "}
+            <span className="grow h-px bg-black/15" />
+          </div>
+          <CashAppPay compact />
+
           <button
             onClick={() => setCartOpen(false)}
             className="text-xs opacity-60 hover:opacity-100 underline underline-offset-2"

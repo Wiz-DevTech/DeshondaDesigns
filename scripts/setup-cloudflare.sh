@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# One-time Cloudflare resource setup for Deshonda Designs.
+# One-time Cloudflare resource setup for DeShonda Designs.
 #
 #   bash scripts/setup-cloudflare.sh YOUR_CLOUDFLARE_API_TOKEN
 #

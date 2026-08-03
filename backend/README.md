@@ -1,11 +1,11 @@
-# Designs by Deshonda — Production Backend (v2: accounts + cart + checkout)
+# Designs by DeShonda — Production Backend (v2: accounts + cart + checkout)
 
 Everything from the original backend (Postgres, JWT admin auth, resized
 photo uploads, CSV customer export) **plus**:
 
 - Customer accounts (name, email, phone, password) — required to add
   items to a cart or buy anything
-- A product catalog Deshonda manages from the **Products** admin tab
+- A product catalog DeShonda manages from the **Products** admin tab
 - A real shopping cart, checkout via **Stripe Checkout**, and an
   **Orders** admin tab
 - Every account created is stored in Postgres, so it doubles as the
@@ -46,7 +46,7 @@ Copy `.env.example` to `.env` and fill in `DB_PASSWORD`, `JWT_SECRET`,
 Real money changes hands here, so this step is deliberately manual —
 nobody should paste live payment keys into a chat.
 
-1. Create a Stripe account at stripe.com if Deshonda doesn't have one.
+1. Create a Stripe account at stripe.com if DeShonda doesn't have one.
 2. In the Stripe Dashboard, grab the **secret key** (starts `sk_test_`
    while testing, `sk_live_` when ready for real orders) → put it in
    `STRIPE_SECRET_KEY`.
@@ -100,7 +100,7 @@ curl https://yourdomain.com/api/health
 Then:
 1. Open the site, create a real customer account through **Account →
    Create Account**.
-2. Log into `/` → "Deshonda's Admin Login", go to **Products**, and
+2. Log into `/` → "DeShonda's Admin Login", go to **Products**, and
    add a real product with a price and photo.
 3. Back on the public site, add it to your cart and click
    **Checkout** — with Stripe test keys in place, use `4242 4242 4242

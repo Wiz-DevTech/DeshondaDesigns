@@ -370,4 +370,4 @@ app.get('/api/admin/orders', requireAdmin, async (req, res) => {
   res.json(r.rows);
 });
 
-app.listen(PORT, () => console.log(`Deshonda API listening on :${PORT}`));
+app.listen(PORT, () => console.log(`DeShonda API listening on :${PORT}`));

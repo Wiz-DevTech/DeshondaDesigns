@@ -31,4 +31,4 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 4000;
-app.listen(PORT, () => console.log(`Deshonda API listening on :${PORT}`));
+app.listen(PORT, () => console.log(`DeShonda API listening on :${PORT}`));

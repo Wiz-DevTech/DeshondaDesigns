@@ -8,7 +8,7 @@ export default function Navbar() {
       <Link href="/" className="flex items-center gap-2">
         <Image
           src="/images/branding/logo.png"
-          alt="Designs by Deshonda"
+          alt="Designs by DeShonda"
           width={160}
           height={60}
           className="h-auto w-32"

@@ -1,5 +1,5 @@
 {
-  // Designs by Deshonda — Cloudflare Worker config.
+  // Designs by DeShonda — Cloudflare Worker config.
   // COMMITTED TEMPLATE. CI (scripts/ci-bootstrap.mjs) copies this to
   // wrangler.jsonc with the real D1 database id substituted. wrangler.jsonc
   // is gitignored and generated on every deploy.

@@ -1,4 +1,4 @@
--- Designs by Deshonda — full schema
+-- Designs by DeShonda — full schema
 -- Runs automatically on first Postgres container boot (mounted into
 -- /docker-entrypoint-initdb.d/ by docker-compose.yml)
 

@@ -27,7 +27,7 @@ export default function Share() {
             type="text"
             value={url}
             onChange={(e) => setUrl(e.target.value)}
-            placeholder="https://designsbydeshonda.com"
+            placeholder="https://deshondadesigns.store"
             className="w-full px-3 py-3 border border-black/20 rounded bg-[var(--sand)]"
           />
         </div>

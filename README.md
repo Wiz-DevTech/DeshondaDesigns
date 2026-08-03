@@ -1,4 +1,4 @@
-# Designs by Deshonda — Production Backend
+# Designs by DeShonda — Production Backend
 
 Real Postgres-backed API replacing the artifact's `window.storage` demo:
 JWT admin auth, server-side image resizing, and CSV export for the customer
@@ -20,7 +20,7 @@ deshonda-backend/
 
 ## 1. DNS + Cloudflare
 
-Add an A record for `designsbydeshonda.store` (or whatever
+Add an A record for `deshondadesigns.store` (or whatever
 subdomain/domain you want) pointing at `95.217.151.38`, proxied through
 Cloudflare the same way your other subdomains are.
 
@@ -32,7 +32,7 @@ On the server (or locally):
 # DB password + JWT secret
 node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
 
-# Admin password hash — pick the real password Deshonda will type in
+# Admin password hash — pick the real password DeShonda will type in
 node -e "console.log(require('bcryptjs').hashSync('herRealPassword', 10))"
 ```
 
@@ -79,12 +79,12 @@ Cloudflare origin cert if you're terminating TLS at Cloudflare).
 ## 6. Confirm it's alive
 
 ```bash
-curl https://designsbydeshonda.deshondadesigns.store/api/health
+curl https://deshondadesigns.store/api/health
 # {"ok":true}
 ```
 
 Then open the site, sign up through the gallery gate, log into
-`/` → "Deshonda's Admin Login" with the real password, and upload a
+`/` → "DeShonda's Admin Login" with the real password, and upload a
 real product photo to confirm the full round trip.
 
 ## Updating the site later
@@ -105,7 +105,7 @@ folder and run `docker compose up -d --build deshonda-api`.
 - **Customer list**: in-memory array → a real table, with a one-click
   CSV export for holiday email/SMS campaigns.
 
-## Adding Deshonda's real product photos now
+## Adding DeShonda's real product photos now
 
 You don't have to wait on deployment to start loading them in — once
 step 4–5 are live, log into the admin dashboard's **Gallery Photos**
@@ -114,7 +114,7 @@ immediately. If you'd rather bulk-load a batch from the command line
 before handing it off to her, you can `curl` them in:
 
 ```bash
-curl -X POST https://designsbydeshonda.wisdodesignsbydeshonda.deshondadesigns.store/api/gallery \
+curl -X POST https://deshondadesigns.store/api/gallery \
   -H "Authorization: Bearer $TOKEN" \
   -F "photo=@basket1.jpg" \
   -F "caption=Christmas Gift Basket" \

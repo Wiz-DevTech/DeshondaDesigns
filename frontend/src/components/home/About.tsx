@@ -5,7 +5,7 @@ export default function About() {
         <div className="relative aspect-[4/5] rounded-md overflow-hidden bg-gradient-to-br from-[var(--jade)] to-[var(--jade-deep)] flex items-end p-6">
           <span className="absolute top-5 right-6 text-[var(--purple-light)] text-2xl">✦</span>
           <span className="bg-[var(--paper)] text-[var(--jade-deep)] px-4 py-2 text-sm font-semibold rounded-sm">
-            Deshonda Davis · Owner &amp; Maker
+            DeShonda Davis · Owner &amp; Maker
           </span>
         </div>
 

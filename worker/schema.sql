@@ -1,4 +1,4 @@
--- Designs by Deshonda — D1 schema (SQLite, applied by CI via the D1 Query API).
+-- Designs by DeShonda — D1 schema (SQLite, applied by CI via the D1 Query API).
 -- Full port of backend/db/schema.sql (v2: accounts + cart + checkout).
 -- Idempotent — safe to re-apply on every deploy.
 

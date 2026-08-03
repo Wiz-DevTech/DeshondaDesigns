@@ -1,5 +1,5 @@
 /**
- * Designs by Deshonda — Cloudflare Worker API (full v2 port)
+ * Designs by DeShonda — Cloudflare Worker API (full v2 port)
  *
  * Faithful port of backend/server/index.js (Express + Postgres) to the
  * Workers edge, self-contained on the free tier:
