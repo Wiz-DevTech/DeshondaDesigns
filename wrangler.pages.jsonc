@@ -1,0 +1,24 @@
+{
+  // Pages deployment config for direct uploads (wrangler pages deploy).
+  // Carries the D1/R2 bindings so deployments work without dashboard config.
+  "name": "deshonda-designs",
+  "pages_build_output_dir": "dist",
+  "compatibility_date": "2025-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "deshonda-db",
+      "database_id": "16049a2d-17b8-497c-9618-61616c10c28c"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "UPLOADS",
+      "bucket_name": "deshonda-uploads"
+    }
+  ],
+  "vars": {
+    "ALLOWED_ORIGIN": "*"
+  }
+}
