@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import NavbarButtons from "@/components/layout/NavbarButtons";
 
 export default function Navbar() {
   return (
@@ -18,10 +19,13 @@ export default function Navbar() {
       <nav className="hidden md:flex gap-7 text-sm font-medium">
         <a href="#about" className="hover:text-[var(--plum)]">About</a>
         <a href="#gallery" className="hover:text-[var(--plum)]">Gallery</a>
+        <a href="#shop" className="hover:text-[var(--plum)]">Shop</a>
         <a href="#baskets" className="hover:text-[var(--plum)]">Occasions</a>
         <a href="#share" className="hover:text-[var(--plum)]">Share</a>
         <a href="#join" className="hover:text-[var(--plum)]">Join the List</a>
       </nav>
+
+      <NavbarButtons />
     </header>
   );
 }

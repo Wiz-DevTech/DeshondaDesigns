@@ -1,0 +1,9 @@
+{
+  "name": "deshonda-ci-scripts",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "bcryptjs": "^3.0.2"
+  }
+}

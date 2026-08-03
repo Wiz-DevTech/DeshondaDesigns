@@ -35,3 +35,6 @@ Thumbs.db
 
 # Uploads (if ever run locally with local disk storage)
 uploads/
+
+# Generated Cloudflare worker config (CI writes this from wrangler.template.jsonc)
+/wrangler.jsonc

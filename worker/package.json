@@ -1,0 +1,17 @@
+{
+  "name": "deshonda-worker",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "bcryptjs": "^3.0.2",
+    "jose": "^6.0.8"
+  },
+  "devDependencies": {
+    "wrangler": "^4.12.0"
+  }
+}

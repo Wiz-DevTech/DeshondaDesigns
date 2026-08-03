@@ -4,6 +4,7 @@ import About from "@/components/home/About";
 import Blessing from "@/components/home/Blessing";
 import Gallery from "@/components/home/Gallery";
 import Occasions from "@/components/home/Occasions";
+import ShopSection from "@/components/shop/ShopSection";
 import Share from "@/components/home/Share";
 import Footer from "@/components/layout/Footer";
 
@@ -16,6 +17,7 @@ export default function Home() {
       <Blessing />
       <Gallery />
       <Occasions />
+      <ShopSection />
       <Share />
       <Footer />
     </main>

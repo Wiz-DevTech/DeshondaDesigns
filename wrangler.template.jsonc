@@ -1,0 +1,31 @@
+{
+  // Designs by Deshonda — Cloudflare Worker config.
+  // COMMITTED TEMPLATE. CI (scripts/ci-bootstrap.mjs) copies this to
+  // wrangler.jsonc with the real D1 database id substituted. wrangler.jsonc
+  // is gitignored and generated on every deploy.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "deshonda-designs",
+  "main": "worker/src/index.js",
+  "compatibility_date": "2025-09-01",
+  "compatibility_flags": ["nodejs_compat"],
+  "assets": {
+    "directory": "./frontend/out",
+    "binding": "ASSETS"
+  },
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "deshonda-db",
+      "database_id": "__D1_DATABASE_ID__"
+    }
+  ],
+  "r2_buckets": [
+    {
+      "binding": "UPLOADS",
+      "bucket_name": "deshonda-uploads"
+    }
+  ],
+  "vars": {
+    "ALLOWED_ORIGIN": "*"
+  }
+}
