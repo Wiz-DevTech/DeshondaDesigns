@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Designs by Deshonda</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Work+Sans:wght@400;500;600&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<style>
+  :root{
+    --jade:#173B2C; --jade-deep:#0E2A20; --purple:#6B3FA0; --purple-light:#B79CE0;
+    --plum:#4A1B5E; --blue-hint:#4B6FA5; --sand:#F3E9D6; --sand-2:#EADFC7;
+    --ink:#2A1C12; --white:#FFFBF3;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  body{ background:var(--sand); color:var(--ink); font-family:'Work Sans', sans-serif; line-height:1.6; overflow-x:hidden; }
+  h1,h2,h3,.display{ font-family:'Cinzel', serif; font-weight:600; letter-spacing:0.01em; color:var(--jade-deep); }
+  .script{ font-family:'Caveat', cursive; }
+  a{ color:inherit; }
+  img{ max-width:100%; display:block; }
+  button{ font-family:inherit; cursor:pointer; border:none; }
+
+  .scallop{ width:100%; height:22px; background-image: radial-gradient(circle at 11px -6px, transparent 12px, var(--purple) 12.5px, var(--purple) 13px, transparent 13.5px); background-size:24px 24px; background-repeat:repeat-x; background-position:center top; opacity:0.85; }
+  .scallop.flip{ transform: rotate(180deg); }
+  .scallop.wine{ background-image: radial-gradient(circle at 11px -6px, transparent 12px, var(--plum) 12.5px, var(--plum) 13px, transparent 13.5px); }
+
+  nav{ position:sticky; top:0; z-index:50; background:rgba(243,233,214,0.92); backdrop-filter: blur(6px); display:flex; align-items:center; justify-content:space-between; padding:16px 5vw; border-bottom:1px solid rgba(42,28,18,0.08); gap:14px; }
+  .brand{ font-family:'Cinzel', serif; font-size:1.35rem; font-weight:600; color:var(--jade-deep); }
+  .brand span{ color:var(--plum); font-family:'Caveat', cursive; font-size:1.1em; }
+  .nav-links{ display:flex; gap:24px; font-size:0.92rem; font-weight:500; align-items:center; }
+  .nav-links a{ text-decoration:none; }
+  .nav-links a:hover{ color:var(--plum); }
+  .nav-icon-btn{ background:none; position:relative; font-size:1.15rem; color:var(--jade-deep); display:flex; align-items:center; gap:6px; font-weight:600; }
+  .cart-count{ background:var(--plum); color:var(--white); font-size:0.68rem; font-weight:700; padding:1px 6px; border-radius:20px; }
+
+  .hero{ position:relative; min-height:88vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:60px 6vw 80px; background: radial-gradient(circle at 20% 15%, rgba(107,63,160,0.16), transparent 45%), radial-gradient(circle at 85% 80%, rgba(75,111,165,0.16), transparent 50%), linear-gradient(180deg, var(--sand) 0%, var(--sand-2) 100%); overflow:hidden; }
+  .hero::before{ content:""; position:absolute; inset:0; background-image: repeating-linear-gradient(115deg, rgba(23,59,44,0.05) 0px, rgba(23,59,44,0.05) 2px, transparent 2px, transparent 26px); pointer-events:none; }
+  .eyebrow{ font-family:'Caveat', cursive; font-size:1.5rem; color:var(--plum); margin-bottom:6px; }
+  .hero h1{ font-size:clamp(2.6rem, 6vw, 4.6rem); line-height:1.02; max-width:16ch; animation: riseIn 1s ease both; }
+  .hero h1 em{ font-style:italic; color:var(--purple); }
+  .hero p.sub{ max-width:52ch; margin:22px auto 34px; font-size:1.12rem; color:#4a382a; animation: riseIn 1s ease .15s both; }
+  @keyframes riseIn{ from{opacity:0; transform:translateY(18px);} to{opacity:1; transform:translateY(0);} }
+  .cta-row{ display:flex; gap:16px; flex-wrap:wrap; justify-content:center; animation: riseIn 1s ease .3s both;}
+  .btn{ padding:14px 30px; border-radius:2px; font-weight:600; font-size:0.95rem; transition:transform .2s ease, box-shadow .2s ease; display:inline-flex; align-items:center; gap:8px; }
+  .btn-primary{ background:var(--jade-deep); color:var(--white); }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 10px 22px rgba(14,42,32,0.28); }
+  .btn-ghost{ background:transparent; color:var(--jade-deep); border:1.5px solid var(--jade-deep); }
+  .btn-ghost:hover{ background:var(--jade-deep); color:var(--white); }
+  .btn-purple{ background:var(--purple); color:var(--jade-deep); }
+  .btn-purple:hover{ transform:translateY(-2px); box-shadow:0 10px 22px rgba(107,63,160,0.35); }
+  .btn-sm{ padding:8px 16px; font-size:0.82rem; }
+  .btn[disabled]{ opacity:0.5; cursor:not-allowed; transform:none !important; box-shadow:none !important; }
+
+  .hero-badge{ margin-top:46px; display:flex; gap:10px; align-items:center; font-size:0.85rem; color:var(--jade-deep); font-weight:500; background:var(--white); padding:10px 18px; border-radius:40px; border:1px solid rgba(23,59,44,0.15); }
+  .hero-badge .dot{ width:7px; height:7px; border-radius:50%; background:var(--plum); }
+
+  section{ padding:90px 6vw; max-width:1180px; margin:0 auto; }
+  .section-head{ text-align:center; max-width:640px; margin:0 auto 50px; }
+  .section-head .eyebrow{ font-size:1.3rem; }
+  .section-head h2{ font-size:clamp(2rem,4vw,2.8rem); }
+
+  .about-wrap{ display:grid; grid-template-columns: 1fr 1.15fr; gap:60px; align-items:center; }
+  .about-portrait{ aspect-ratio: 4/5; border-radius:6px; background: linear-gradient(160deg, var(--jade) 0%, var(--jade-deep) 70%); position:relative; overflow:hidden; display:flex; align-items:flex-end; padding:26px; }
+  .about-portrait::after{ content:"✦"; position:absolute; top:22px; right:24px; color:var(--purple-light); font-size:1.6rem; }
+  .about-portrait .tag{ background:var(--white); color:var(--jade-deep); padding:10px 16px; font-size:0.85rem; font-weight:600; border-radius:2px; }
+  .about-copy h3{ font-size:1.9rem; margin-bottom:16px; }
+  .about-copy p{ color:#4a382a; margin-bottom:14px; }
+  .pillars{ display:flex; gap:14px; margin-top:26px; flex-wrap:wrap; }
+  .pillar{ background:var(--white); border:1px solid rgba(23,59,44,0.12); padding:14px 18px; border-radius:4px; font-size:0.88rem; font-weight:600; color:var(--jade-deep); display:flex; align-items:center; gap:8px; }
+
+  .blessing{ background:var(--jade-deep); color:var(--white); text-align:center; padding:64px 6vw; position:relative; }
+  .blessing p{ font-family:'Cinzel', serif; font-style:normal; font-size:clamp(1.3rem,2.6vw,1.9rem); max-width:22ch; margin:0 auto; line-height:1.4; }
+  .blessing .who{ margin-top:18px; font-family:'Caveat', cursive; font-size:1.3rem; color:var(--purple-light); }
+
+  .gallery-wrap{ position:relative; }
+  .gallery-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:18px; }
+  .g-card{ position:relative; border-radius:6px; overflow:hidden; aspect-ratio:1/1; background:var(--sand-2); border:1px solid rgba(23,59,44,0.1); }
+  .g-card img{ width:100%; height:100%; object-fit:cover; }
+  .g-card .cap{ position:absolute; left:0; right:0; bottom:0; padding:12px 14px; background:linear-gradient(0deg, rgba(14,42,32,0.85), transparent); color:var(--white); font-size:0.85rem; font-weight:500; }
+  .g-empty{ grid-column:1/-1; text-align:center; padding:50px 20px; color:#6b5a49; border:1.5px dashed rgba(74,27,94,0.3); border-radius:8px; }
+
+  .gate{ position:absolute; inset:0; z-index:20; background:rgba(243,233,214,0.9); backdrop-filter: blur(9px); display:flex; align-items:center; justify-content:center; border-radius:10px; }
+  .gate-card{ background:var(--white); border:1px solid rgba(23,59,44,0.14); max-width:420px; width:92%; padding:36px 32px; border-radius:8px; text-align:center; box-shadow:0 30px 60px rgba(14,42,32,0.18); }
+  .gate-card h3{ font-size:1.5rem; margin-bottom:8px; }
+  .gate-card p{ color:#5a4633; font-size:0.92rem; margin-bottom:22px; }
+  .gate-form{ display:flex; flex-direction:column; gap:12px; text-align:left; }
+  .gate-form label{ font-size:0.78rem; font-weight:600; color:var(--jade-deep); text-transform:uppercase; letter-spacing:0.04em; }
+  .gate-form input{ padding:12px 14px; border:1.5px solid rgba(23,59,44,0.2); border-radius:4px; font-family:inherit; font-size:0.95rem; background:var(--sand); width:100%; }
+  .gate-form input:focus{ outline:none; border-color:var(--plum); }
+  .gate-note{ font-size:0.75rem; color:#7a6a58; margin-top:14px; }
+  .unlocked-strip{ display:flex; align-items:center; justify-content:space-between; gap:12px; background:var(--white); border:1px solid rgba(23,59,44,0.12); padding:12px 18px; border-radius:6px; margin-bottom:22px; font-size:0.88rem; flex-wrap:wrap; }
+  .unlocked-strip .pill{ background:var(--jade); color:var(--white); padding:5px 12px; border-radius:20px; font-size:0.78rem; font-weight:600;}
+
+  .occasions{ display:grid; grid-template-columns:repeat(auto-fit,minmax(180px,1fr)); gap:16px; margin-top:36px; }
+  .occ{ background:var(--white); border:1px solid rgba(23,59,44,0.1); border-radius:6px; padding:22px 18px; text-align:center; transition:transform .2s ease; }
+  .occ:hover{ transform:translateY(-4px); border-color:var(--purple); }
+  .occ .em{ font-size:1.8rem; margin-bottom:8px; }
+  .occ h4{ font-family:'Cinzel',serif; color:var(--jade-deep); font-size:1.05rem; margin-bottom:4px;}
+  .occ p{ font-size:0.82rem; color:#6b5a49; }
+
+  /* SHOP */
+  .shop-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(230px,1fr)); gap:20px; }
+  .p-card{ background:var(--white); border:1px solid rgba(23,59,44,0.12); border-radius:8px; overflow:hidden; display:flex; flex-direction:column; }
+  .p-card .p-img{ aspect-ratio:1/1; background:var(--sand-2); overflow:hidden; }
+  .p-card .p-img img{ width:100%; height:100%; object-fit:cover; }
+  .p-card .p-body{ padding:16px; display:flex; flex-direction:column; gap:8px; flex:1; }
+  .p-card h4{ font-size:1.05rem; }
+  .p-card .p-desc{ font-size:0.85rem; color:#6b5a49; flex:1; }
+  .p-card .p-price{ font-family:'Cinzel',serif; color:var(--plum); font-size:1.15rem; font-weight:700; }
+  .p-empty{ grid-column:1/-1; text-align:center; padding:50px 20px; color:#6b5a49; border:1.5px dashed rgba(74,27,94,0.3); border-radius:8px; }
+
+  /* CART DRAWER */
+  .cart-overlay{ position:fixed; inset:0; background:rgba(14,42,32,0.4); z-index:150; display:none; }
+  .cart-overlay.show{ display:block; }
+  .cart-drawer{ position:fixed; top:0; right:0; bottom:0; width:min(420px, 92vw); background:var(--white); z-index:151; box-shadow:-20px 0 50px rgba(14,42,32,0.25); transform:translateX(100%); transition:transform .3s ease; display:flex; flex-direction:column; }
+  .cart-drawer.show{ transform:translateX(0); }
+  .cart-head{ padding:22px 22px 16px; border-bottom:1px solid rgba(23,59,44,0.1); display:flex; justify-content:space-between; align-items:center; }
+  .cart-close{ background:none; font-size:1.3rem; color:var(--jade-deep); }
+  .cart-items{ flex:1; overflow-y:auto; padding:16px 22px; }
+  .c-item{ display:flex; gap:12px; padding:14px 0; border-bottom:1px solid rgba(23,59,44,0.08); }
+  .c-item img{ width:64px; height:64px; object-fit:cover; border-radius:6px; background:var(--sand-2); }
+  .c-item .c-info{ flex:1; }
+  .c-item .c-info .name{ font-weight:600; font-size:0.92rem; }
+  .c-item .c-qty{ display:flex; align-items:center; gap:8px; margin-top:6px; }
+  .c-item .c-qty button{ background:var(--sand-2); width:24px; height:24px; border-radius:4px; font-weight:700; }
+  .c-item .remove{ background:none; color:var(--plum); font-size:0.78rem; text-decoration:underline; margin-top:4px; }
+  .cart-empty{ text-align:center; color:#7a6a58; padding:40px 10px; }
+  .cart-foot{ padding:18px 22px 24px; border-top:1px solid rgba(23,59,44,0.1); }
+  .cart-total-row{ display:flex; justify-content:space-between; font-weight:700; margin-bottom:14px; font-family:'Cinzel',serif; color:var(--jade-deep); }
+
+  /* ACCOUNT MODAL */
+  .modal-overlay{ position:fixed; inset:0; background:rgba(14,42,32,0.45); z-index:150; display:none; align-items:center; justify-content:center; padding:20px; }
+  .modal-overlay.show{ display:flex; }
+  .modal-card{ background:var(--white); border-radius:10px; max-width:420px; width:100%; padding:32px; position:relative; }
+  .modal-close{ position:absolute; top:14px; right:16px; background:none; font-size:1.2rem; color:var(--jade-deep); }
+  .modal-tabs{ display:flex; gap:8px; margin-bottom:20px; }
+  .modal-tab{ flex:1; padding:9px; border-radius:6px; background:var(--sand); font-weight:600; font-size:0.85rem; color:var(--jade-deep); }
+  .modal-tab.active{ background:var(--jade-deep); color:var(--white); }
+  .modal-panel{ display:none; flex-direction:column; gap:12px; }
+  .modal-panel.active{ display:flex; }
+  .modal-panel label{ font-size:0.75rem; font-weight:600; color:var(--jade-deep); text-transform:uppercase; }
+  .modal-panel input{ padding:11px 13px; border:1.5px solid rgba(23,59,44,0.2); border-radius:4px; font-family:inherit; width:100%; }
+  .modal-checkbox{ display:flex; align-items:flex-start; gap:8px; font-size:0.8rem; color:#5a4633; }
+  .modal-checkbox input{ width:auto; margin-top:3px; }
+  .modal-error{ color:var(--plum); font-size:0.82rem; display:none; }
+
+  .qr-panel{ display:grid; grid-template-columns:1fr 1fr; gap:50px; align-items:center; background:var(--white); border:1px solid rgba(23,59,44,0.12); border-radius:14px; padding:48px; }
+  .qr-panel input[type=text]{ width:100%; padding:12px 14px; border:1.5px solid rgba(23,59,44,0.2); border-radius:4px; font-family:inherit; margin-bottom:14px; }
+  #qr-box{ display:flex; align-items:center; justify-content:center; background:var(--sand); border-radius:8px; padding:24px; min-height:220px; }
+
+  footer{ background:var(--jade-deep); color:var(--white); padding:70px 6vw 40px; text-align:center; }
+  footer h2{ color:var(--white); }
+  footer .foot-form{ max-width:440px; margin:30px auto 0; display:flex; gap:10px; flex-wrap:wrap; justify-content:center;}
+  footer input{ flex:1; min-width:220px; padding:13px 16px; border-radius:4px; border:none; font-family:inherit; }
+  .foot-links{ margin-top:50px; font-size:0.8rem; opacity:0.7; display:flex; gap:20px; justify-content:center; flex-wrap:wrap;}
+  .admin-link{ background:none; color:rgba(255,251,243,0.45); font-size:0.75rem; text-decoration:underline; margin-top:26px; }
+
+  .toast{ position:fixed; bottom:24px; left:50%; transform:translateX(-50%) translateY(120%); background:var(--jade-deep); color:var(--white); padding:14px 26px; border-radius:6px; font-size:0.9rem; z-index:200; transition:transform .35s ease; box-shadow:0 12px 30px rgba(0,0,0,0.25); }
+  .toast.show{ transform:translateX(-50%) translateY(0); }
+
+  #admin-view{ display:none; }
+  .admin-lock{ max-width:420px; margin:120px auto; background:var(--white); padding:40px 34px; border-radius:10px; border:1px solid rgba(23,59,44,0.15); text-align:center; }
+  .admin-lock input{ width:100%; padding:12px 14px; margin:16px 0; border:1.5px solid rgba(23,59,44,0.2); border-radius:4px; font-family:inherit; }
+  .admin-shell{ padding:40px 4vw 80px; max-width:1180px; margin:0 auto; }
+  .admin-top{ display:flex; justify-content:space-between; align-items:center; margin-bottom:30px; flex-wrap:wrap; gap:14px;}
+  .tabs{ display:flex; gap:8px; margin-bottom:30px; flex-wrap:wrap; }
+  .tab-btn{ padding:10px 18px; border-radius:30px; background:var(--white); border:1px solid rgba(23,59,44,0.15); font-weight:600; font-size:0.85rem; color:var(--jade-deep); }
+  .tab-btn.active{ background:var(--jade-deep); color:var(--white); }
+  .admin-panel{ display:none; }
+  .admin-panel.active{ display:block; }
+  .cards-row{ display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; margin-bottom:30px;}
+  .stat-card{ background:var(--white); border:1px solid rgba(23,59,44,0.12); border-radius:8px; padding:20px 22px;}
+  .stat-card .label{ font-size:0.75rem; text-transform:uppercase; letter-spacing:0.05em; color:#7a6a58; font-weight:600;}
+  .stat-card .num{ font-family:'Cinzel',serif; font-size:1.9rem; color:var(--jade-deep); margin-top:6px;}
+  .stat-card.wine .num{ color:var(--plum); }
+  .stat-card.blue .num{ color:var(--blue-hint); }
+
+  .entry-form{ background:var(--white); border:1px solid rgba(23,59,44,0.12); border-radius:8px; padding:24px; display:grid; grid-template-columns:1.4fr 1fr 1fr 1fr auto; gap:10px; margin-bottom:24px; align-items:end; }
+  .entry-form div{ display:flex; flex-direction:column; gap:5px; }
+  .entry-form label{ font-size:0.72rem; font-weight:600; color:var(--jade-deep); text-transform:uppercase;}
+  .entry-form input, .entry-form select{ padding:10px 12px; border:1.5px solid rgba(23,59,44,0.18); border-radius:4px; font-family:inherit; font-size:0.88rem; }
+  table{ width:100%; border-collapse:collapse; background:var(--white); border-radius:8px; overflow:hidden; border:1px solid rgba(23,59,44,0.12);}
+  th,td{ text-align:left; padding:12px 16px; font-size:0.87rem; border-bottom:1px solid rgba(23,59,44,0.08); }
+  th{ background:var(--sand-2); text-transform:uppercase; font-size:0.72rem; letter-spacing:0.04em; color:#5a4633; }
+  tr:last-child td{ border-bottom:none; }
+  .status-chip{ padding:4px 10px; border-radius:20px; font-size:0.72rem; font-weight:700; }
+  .status-accrued{ background:#EDE1F7; color:var(--purple); }
+  .status-received, .status-paid{ background:#d9ead9; color:#1e6b3a; }
+  .status-pending{ background:#fce8cf; color:#8a5a1e; }
+  .del-btn{ background:none; color:var(--plum); font-size:0.78rem; font-weight:600; }
+  .upload-zone{ border:2px dashed rgba(23,59,44,0.25); border-radius:10px; padding:34px; text-align:center; margin-bottom:26px; background:var(--white); }
+  .upload-zone input{ margin-top:10px; }
+  .admin-gallery{ display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:14px; }
+  .admin-g-card{ position:relative; border-radius:6px; overflow:hidden; aspect-ratio:1/1; border:1px solid rgba(23,59,44,0.12);}
+  .admin-g-card img{ width:100%; height:100%; object-fit:cover; }
+  .admin-g-card button{ position:absolute; top:6px; right:6px; background:rgba(74,27,94,0.9); color:#fff; width:26px; height:26px; border-radius:50%; font-size:0.85rem; }
+  .exit-admin{ background:none; color:var(--jade-deep); font-weight:600; text-decoration:underline; font-size:0.85rem; }
+
+  @media (max-width:820px){
+    .nav-links{ display:none; }
+    .about-wrap{ grid-template-columns:1fr; }
+    .qr-panel{ grid-template-columns:1fr; padding:30px; }
+    .entry-form{ grid-template-columns:1fr 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce){ *{ animation:none !important; transition:none !important; } }
+</style>
+</head>
+<body>
+
+<!-- ============ PUBLIC SITE ============ -->
+<div id="public-view">
+
+  <nav>
+    <div class="brand">Designs by <span>Deshonda</span></div>
+    <div class="nav-links">
+      <a href="#about">About</a>
+      <a href="#gallery">Gallery</a>
+      <a href="#shop">Shop</a>
+      <a href="#baskets">Occasions</a>
+      <a href="#join">Join the List</a>
+      <button class="nav-icon-btn" id="account-nav-btn" onclick="openAccountModal()">Account</button>
+      <button class="nav-icon-btn" onclick="openCart()">Cart <span class="cart-count" id="cart-count" style="display:none;">0</span></button>
+    </div>
+  </nav>
+
+  <section class="hero" style="padding-top:20px;">
+    <div class="eyebrow">crochet &amp; gift baskets, made with love</div>
+    <h1>Handmade <em>Blessings</em>,<br>Gifted with Grace</h1>
+    <p class="sub">I'm Deshonda — mother, grandmother, and crafter of cozy things. Every crochet piece and every gift basket leaves my hands with a prayer stitched into it.</p>
+    <div class="cta-row">
+      <button class="btn btn-primary" onclick="document.getElementById('shop').scrollIntoView()">Shop Now</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('gallery').scrollIntoView()">View the Gallery</button>
+    </div>
+    <div class="hero-badge"><span class="dot"></span> Holiday orders open now — spots are limited</div>
+  </section>
+
+  <div class="scallop"></div>
+
+  <section id="about">
+    <div class="about-wrap">
+      <div class="about-portrait"><span class="tag">Deshonda Davis · Owner &amp; Maker</span></div>
+      <div class="about-copy">
+        <div class="eyebrow script">a little about me</div>
+        <h3>Rooted in faith, family, and fiber.</h3>
+        <p>I'm an urban, natural-living woman with a little rasta in my soul — I believe in real ingredients, real color, and real love. My hands have been busy with a crochet hook since I was a girl, and these days I get to share that gift with my children, my grandchildren, and now, with you.</p>
+        <p>Every gift basket and every crochet piece I make is a little offering — beauty, love, respect, and honor, wrapped up for someone you care about.</p>
+        <div class="pillars">
+          <div class="pillar">🧶 Handmade Crochet</div>
+          <div class="pillar">🧺 Gift Baskets, Any Occasion</div>
+          <div class="pillar">🙏 God-Fearing &amp; Grateful</div>
+          <div class="pillar">👵🏾 Mother &amp; Grandmother</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="blessing">
+    <p>"She stretches out her hands to the needy, and her hands make beautiful things for those she loves."</p>
+    <div class="who">— the heart behind every basket</div>
+  </div>
+
+  <section id="gallery" class="gallery-wrap">
+    <div class="section-head"><div class="eyebrow script">the gallery</div><h2>See What I've Been Making</h2></div>
+    <div id="unlocked-info" style="display:none;" class="unlocked-strip">
+      <div><span class="pill">Welcome</span> <span id="welcome-name"></span> — thanks for joining the list!</div>
+      <div id="gallery-count-label"></div>
+    </div>
+    <div style="position:relative; min-height:260px;">
+      <div class="gallery-grid" id="gallery-grid"></div>
+      <div class="gate" id="gallery-gate">
+        <div class="gate-card">
+          <h3>Peek Inside the Basket 🎁</h3>
+          <p>Sign up with your name and email to unlock the full gallery — plus you'll be first to hear about holiday drops and openings.</p>
+          <form class="gate-form" onsubmit="handleSignup(event)">
+            <div><label>Full Name</label><input type="text" id="signup-name" required placeholder="Your name"></div>
+            <div><label>Email</label><input type="email" id="signup-email" required placeholder="you@email.com"></div>
+            <div><label>Phone (optional)</label><input type="tel" id="signup-phone" placeholder="(xxx) xxx-xxxx"></div>
+            <button type="submit" class="btn btn-purple" style="justify-content:center; margin-top:6px; width:100%;">Unlock the Gallery</button>
+          </form>
+          <div class="gate-note">Your info goes straight to Deshonda — never sold, never spammed. 🌿</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="scallop wine flip"></div>
+
+  <section id="shop">
+    <div class="section-head"><div class="eyebrow script">shop the collection</div><h2>Ready to Ship</h2></div>
+    <div class="shop-grid" id="shop-grid"></div>
+  </section>
+
+  <section id="baskets">
+    <div class="section-head"><div class="eyebrow script">gift baskets for every season</div><h2>A Basket for Every Occasion</h2></div>
+    <div class="occasions">
+      <div class="occ"><div class="em">🎄</div><h4>Holiday</h4><p>Christmas &amp; New Year gifting, custom themed</p></div>
+      <div class="occ"><div class="em">🎂</div><h4>Birthday</h4><p>Sweet, cozy, and personal</p></div>
+      <div class="occ"><div class="em">👶🏾</div><h4>Baby &amp; Shower</h4><p>Soft crochet sets &amp; keepsakes</p></div>
+      <div class="occ"><div class="em">💐</div><h4>Sympathy</h4><p>Comfort baskets, gently made</p></div>
+      <div class="occ"><div class="em">💍</div><h4>Wedding</h4><p>Elegant baskets for the new couple</p></div>
+      <div class="occ"><div class="em">🙏🏾</div><h4>Just Because</h4><p>A blessing for no reason at all</p></div>
+    </div>
+  </section>
+
+  <section id="share">
+    <div class="section-head"><div class="eyebrow script">share the page</div><h2>Scan &amp; Share</h2></div>
+    <div class="qr-panel">
+      <div>
+        <h3 style="font-size:1.4rem; margin-bottom:10px;">Turn this page into a QR code</h3>
+        <p style="color:#5a4633; margin-bottom:18px; font-size:0.92rem;">Paste your live site link, then generate a QR code customers can scan straight to this page.</p>
+        <label style="font-size:0.78rem; font-weight:600; color:var(--jade-deep); text-transform:uppercase;">Your page link</label>
+        <input type="text" id="qr-url" placeholder="https://designsbydeshonda.store">
+        <button class="btn btn-primary" onclick="generateQR()">Generate QR Code</button>
+      </div>
+      <div id="qr-box"><span style="color:#8a7a68; font-size:0.85rem;">Your QR code will appear here</span></div>
+    </div>
+  </section>
+
+  <footer id="join">
+    <div class="eyebrow script" style="color:var(--purple-light);">don't miss the holiday drop</div>
+    <h2>Join Deshonda's List</h2>
+    <p style="opacity:0.85; max-width:44ch; margin:10px auto 0;">Be the first to know about new baskets, crochet drops, and holiday booking dates.</p>
+    <form class="foot-form" onsubmit="handleSignup(event)">
+      <input type="text" id="signup-name-2" required placeholder="Your name">
+      <input type="email" id="signup-email-2" required placeholder="you@email.com">
+      <button class="btn btn-purple" type="submit">Join</button>
+    </form>
+    <div class="foot-links"><span>🧶 Crochet</span><span>🧺 Gift Baskets</span><span>📍 Custom Orders Welcome</span></div>
+    <button class="admin-link" onclick="showAdminLock()">Deshonda's Admin Login</button>
+  </footer>
+</div>
+
+<!-- ACCOUNT MODAL -->
+<div class="modal-overlay" id="account-modal">
+  <div class="modal-card">
+    <button class="modal-close" onclick="closeAccountModal()">×</button>
+    <div id="account-logged-in" style="display:none;">
+      <h3 style="margin-bottom:14px;">Hi, <span id="account-name-display"></span> 👋</h3>
+      <p style="color:#5a4633; font-size:0.9rem; margin-bottom:18px;">You're signed in as <span id="account-email-display"></span>.</p>
+      <button class="btn btn-ghost" style="width:100%; justify-content:center;" onclick="customerLogout()">Log Out</button>
+    </div>
+    <div id="account-forms">
+      <div class="modal-tabs">
+        <button class="modal-tab active" data-tab="login" onclick="switchAccountTab('login')">Log In</button>
+        <button class="modal-tab" data-tab="signup" onclick="switchAccountTab('signup')">Create Account</button>
+      </div>
+      <form class="modal-panel active" id="panel-login" onsubmit="customerLogin(event)">
+        <div><label>Email</label><input type="email" id="login-email" required></div>
+        <div><label>Password</label><input type="password" id="login-password" required></div>
+        <div class="modal-error" id="login-error"></div>
+        <button type="submit" class="btn btn-primary" style="justify-content:center; width:100%;">Log In</button>
+      </form>
+      <form class="modal-panel" id="panel-signup" onsubmit="customerRegister(event)">
+        <div><label>Full Name</label><input type="text" id="reg-name" required></div>
+        <div><label>Email</label><input type="email" id="reg-email" required></div>
+        <div><label>Phone (optional)</label><input type="tel" id="reg-phone"></div>
+        <div><label>Password (min. 8 characters)</label><input type="password" id="reg-password" minlength="8" required></div>
+        <label class="modal-checkbox"><input type="checkbox" id="reg-marketing" checked> Keep me posted about new baskets, drops, and holiday discounts</label>
+        <div class="modal-error" id="signup-error"></div>
+        <button type="submit" class="btn btn-purple" style="justify-content:center; width:100%;">Create Account</button>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- CART DRAWER -->
+<div class="cart-overlay" id="cart-overlay" onclick="closeCart()"></div>
+<div class="cart-drawer" id="cart-drawer">
+  <div class="cart-head"><h3>Your Cart</h3><button class="cart-close" onclick="closeCart()">×</button></div>
+  <div class="cart-items" id="cart-items-list"></div>
+  <div class="cart-foot">
+    <div class="cart-total-row"><span>Total</span><span id="cart-total">$0.00</span></div>
+    <button class="btn btn-purple" style="width:100%; justify-content:center;" id="checkout-btn" onclick="startCheckout()">Checkout</button>
+    <p style="font-size:0.72rem; color:#8a7a68; margin-top:10px; text-align:center;">Secure payment powered by Stripe</p>
+  </div>
+</div>
+
+<!-- ============ ADMIN VIEW ============ -->
+<div id="admin-view">
+  <div class="admin-lock" id="admin-lock-screen">
+    <div class="eyebrow script" style="text-align:center;">admin only</div>
+    <h3 style="text-align:center;">Deshonda's Dashboard</h3>
+    <p style="color:#6b5a49; font-size:0.88rem; margin-top:8px;">Enter your passcode to manage the shop, gallery, accounting, and customer list.</p>
+    <input type="password" id="admin-pass" placeholder="Passcode">
+    <button class="btn btn-primary" style="width:100%; justify-content:center;" onclick="tryAdminLogin()">Enter Dashboard</button>
+    <button class="exit-admin" style="margin-top:16px;" onclick="exitAdmin()">← Back to public site</button>
+    <p style="font-size:0.72rem; color:#9a8a78; margin-top:18px;">Passcode is set on the server — see the deployment README.</p>
+  </div>
+
+  <div class="admin-shell" id="admin-dashboard" style="display:none;">
+    <div class="admin-top">
+      <div class="brand">Deshonda's Dashboard</div>
+      <button class="exit-admin" onclick="exitAdmin()">← Back to public site</button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="accounting" onclick="switchTab('accounting')">📒 Accounting</button>
+      <button class="tab-btn" data-tab="products" onclick="switchTab('products')">🛍️ Products</button>
+      <button class="tab-btn" data-tab="orders" onclick="switchTab('orders')">🧾 Orders</button>
+      <button class="tab-btn" data-tab="gallery" onclick="switchTab('gallery')">🧺 Gallery Photos</button>
+      <button class="tab-btn" data-tab="customers" onclick="switchTab('customers')">📋 Customer List</button>
+    </div>
+
+    <div class="admin-panel active" id="panel-accounting">
+      <div class="cards-row">
+        <div class="stat-card"><div class="label">Total Sales (Accrued)</div><div class="num" id="stat-accrued">$0.00</div></div>
+        <div class="stat-card wine"><div class="label">Outstanding</div><div class="num" id="stat-outstanding">$0.00</div></div>
+        <div class="stat-card blue"><div class="label">Received</div><div class="num" id="stat-received">$0.00</div></div>
+      </div>
+      <form class="entry-form" onsubmit="addEntry(event)">
+        <div><label>Description</label><input type="text" id="e-desc" placeholder="e.g. Holiday basket - Jones family" required></div>
+        <div><label>Category</label><select id="e-cat"><option>Gift Basket</option><option>Crochet</option><option>Custom Order</option><option>Other</option></select></div>
+        <div><label>Amount ($)</label><input type="number" step="0.01" id="e-amount" placeholder="0.00" required></div>
+        <div><label>Status</label><select id="e-status"><option value="accrued">Accrued (invoiced)</option><option value="received">Received (paid)</option></select></div>
+        <button type="submit" class="btn btn-primary">Add Entry</button>
+      </form>
+      <table id="ledger-table"><thead><tr><th>Date</th><th>Description</th><th>Category</th><th>Status</th><th>Amount</th><th></th></tr></thead><tbody id="ledger-body"></tbody></table>
+    </div>
+
+    <div class="admin-panel" id="panel-products">
+      <div class="upload-zone">
+        <div style="font-size:1.1rem; font-weight:600; color:var(--jade-deep);">Add a Product</div>
+        <p style="color:#6b5a49; font-size:0.85rem; margin:4px 0 14px;">Anything you add here appears in the public Shop section right away.</p>
+        <form onsubmit="addProduct(event)" style="display:grid; gap:10px; max-width:420px; margin:0 auto; text-align:left;">
+          <input type="text" id="prod-name" placeholder="Product name" required style="padding:10px 12px; border:1.5px solid rgba(23,59,44,0.2); border-radius:4px; font-family:inherit;">
+          <textarea id="prod-desc" placeholder="Short description" rows="2" style="padding:10px 12px; border:1.5px solid rgba(23,59,44,0.2); border-radius:4px; font-family:inherit;"></textarea>
+          <input type="number" step="0.01" id="prod-price" placeholder="Price ($)" required style="padding:10px 12px; border:1.5px solid rgba(23,59,44,0.2); border-radius:4px; font-family:inherit;">
+          <input type="text" id="prod-cat" placeholder="Category (e.g. Basket, Crochet)" style="padding:10px 12px; border:1.5px solid rgba(23,59,44,0.2); border-radius:4px; font-family:inherit;">
+          <input type="file" id="prod-image" accept="image/*">
+          <button type="submit" class="btn btn-primary" style="justify-content:center;">Add Product</button>
+        </form>
+      </div>
+      <div class="admin-gallery" id="admin-products-grid"></div>
+    </div>
+
+    <div class="admin-panel" id="panel-orders">
+      <table><thead><tr><th>Date</th><th>Customer</th><th>Email</th><th>Total</th><th>Status</th></tr></thead><tbody id="orders-body"></tbody></table>
+      <div id="orders-empty" style="text-align:center; padding:40px; color:#7a6a58; display:none;">No orders yet.</div>
+    </div>
+
+    <div class="admin-panel" id="panel-gallery">
+      <div class="upload-zone">
+        <div style="font-size:1.1rem; font-weight:600; color:var(--jade-deep);">Upload Basket &amp; Crochet Photos</div>
+        <p style="color:#6b5a49; font-size:0.85rem; margin-top:4px;">Photos are resized automatically and added straight to your public gallery.</p>
+        <input type="text" id="photo-caption" placeholder="Caption (e.g. 'Christmas Gift Basket')" style="max-width:320px; margin:14px auto; display:block; padding:10px 12px; border-radius:4px; border:1.5px solid rgba(23,59,44,0.2); font-family:inherit;">
+        <input type="file" id="photo-input" accept="image/*" multiple>
+      </div>
+      <div class="admin-gallery" id="admin-gallery-grid"></div>
+    </div>
+
+    <div class="admin-panel" id="panel-customers">
+      <button class="btn btn-primary" style="margin-bottom:18px;" onclick="exportCustomers()">Download CSV for holiday mailing list</button>
+      <table><thead><tr><th>Date</th><th>Name</th><th>Email</th><th>Phone</th></tr></thead><tbody id="customers-body"></tbody></table>
+      <div id="customers-empty" style="text-align:center; padding:40px; color:#7a6a58; display:none;">No sign-ups yet.</div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// Same-origin deployment: nginx proxies /api/* and /uploads/* on this domain.
+const API_BASE = '';
+let ADMIN_TOKEN = sessionStorage.getItem('deshonda_admin_token') || null;
+let CUSTOMER_TOKEN = localStorage.getItem('deshonda_customer_token') || null;
+let CUSTOMER = JSON.parse(localStorage.getItem('deshonda_customer') || 'null');
+
+let GALLERY = [], SIGNUPS = [], LEDGER = [], PRODUCTS = [], CART = [], ORDERS = [];
+let unlocked = false;
+
+async function api(path, opts = {}){
+  const headers = opts.headers || {};
+  if (!(opts.body instanceof FormData) && opts.body) headers['Content-Type'] = 'application/json';
+  if (opts.auth === 'admin') headers['Authorization'] = `Bearer ${ADMIN_TOKEN}`;
+  if (opts.auth === 'customer') headers['Authorization'] = `Bearer ${CUSTOMER_TOKEN}`;
+  const res = await fetch(API_BASE + path, { ...opts, headers });
+  if (res.status === 204) return null;
+  const data = await res.json().catch(()=>null);
+  if (!res.ok) throw new Error((data && data.error) || 'Request failed');
+  return data;
+}
+
+function showToast(msg){
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 2800);
+}
+function fmtCents(c){ return '$' + (c/100).toFixed(2); }
+
+// ---------- initial load ----------
+async function loadAll(){
+  try{ GALLERY = await api('/api/gallery'); }catch(e){ GALLERY = []; }
+  try{ PRODUCTS = await api('/api/products'); }catch(e){ PRODUCTS = []; }
+  renderGalleryPublic();
+  renderShop();
+  updateAccountUI();
+  if (CUSTOMER_TOKEN) await refreshCart();
+  if (ADMIN_TOKEN){
+    try{
+      SIGNUPS = await api('/api/signups', { auth:'admin' });
+      LEDGER = await api('/api/ledger', { auth:'admin' });
+      const allProducts = await api('/api/admin/products', { auth:'admin' });
+      ORDERS = await api('/api/admin/orders', { auth:'admin' });
+      renderAdminGallery(); renderLedger(); renderCustomers();
+      renderAdminProducts(allProducts); renderOrders();
+    }catch(e){ /* admin token expired */ }
+  }
+  // Stripe redirects back with ?order=success or ?order=canceled
+  const params = new URLSearchParams(location.search);
+  if (params.get('order') === 'success'){ showToast('Payment received — thank you! 🎉'); CART = []; renderCartDrawer(); }
+  if (params.get('order') === 'canceled'){ showToast('Checkout canceled — your cart is still saved.'); }
+}
+
+// ---------- public gallery ----------
+function renderGalleryPublic(){
+  const grid = document.getElementById('gallery-grid');
+  const gate = document.getElementById('gallery-gate');
+  grid.innerHTML = '';
+  if(GALLERY.length === 0){
+    grid.innerHTML = '<div class="g-empty">The gallery is being filled with fresh baskets and crochet pieces — check back soon! 🧺</div>';
+  } else {
+    GALLERY.forEach(img=>{
+      const el = document.createElement('div');
+      el.className = 'g-card';
+      el.innerHTML = `<img src="${API_BASE}${img.url}" alt="${img.caption||''}"><div class="cap">${img.caption||''}</div>`;
+      grid.appendChild(el);
+    });
+  }
+  gate.style.display = unlocked ? 'none' : 'flex';
+  document.getElementById('gallery-count-label').textContent = GALLERY.length + ' item' + (GALLERY.length===1?'':'s') + ' in the gallery';
+}
+
+async function handleSignup(evt){
+  evt.preventDefault();
+  let name, email, phone;
+  if(evt.target.querySelector('#signup-name')){
+    name = document.getElementById('signup-name').value;
+    email = document.getElementById('signup-email').value;
+    phone = document.getElementById('signup-phone').value;
+  } else {
+    name = document.getElementById('signup-name-2').value;
+    email = document.getElementById('signup-email-2').value;
+    phone = '';
+  }
+  try{ await api('/api/signups', { method:'POST', body: JSON.stringify({ name, email, phone }) }); }
+  catch(e){ showToast('Something went wrong — try again'); return; }
+  unlocked = true;
+  document.getElementById('welcome-name').textContent = name;
+  document.getElementById('unlocked-info').style.display = 'flex';
+  renderGalleryPublic();
+  showToast(`Welcome, ${name}! The gallery is unlocked. 🎉`);
+  document.getElementById('gallery').scrollIntoView({behavior:'smooth'});
+}
+
+// ---------- shop ----------
+function renderShop(){
+  const grid = document.getElementById('shop-grid');
+  grid.innerHTML = '';
+  if (PRODUCTS.length === 0){
+    grid.innerHTML = '<div class="p-empty">New pieces are being added to the shop soon — check back! 🧶</div>';
+    return;
+  }
+  PRODUCTS.forEach(p=>{
+    const el = document.createElement('div');
+    el.className = 'p-card';
+    el.innerHTML = `
+      <div class="p-img">${p.image_url ? `<img src="${API_BASE}${p.image_url}" alt="${p.name}">` : ''}</div>
+      <div class="p-body">
+        <h4>${p.name}</h4>
+        <div class="p-desc">${p.description||''}</div>
+        <div class="p-price">${fmtCents(p.price_cents)}</div>
+        <button class="btn btn-primary btn-sm" style="justify-content:center;" onclick="addToCart(${p.id})">Add to Cart</button>
+      </div>`;
+    grid.appendChild(el);
+  });
+}
+
+async function addToCart(productId){
+  if (!CUSTOMER_TOKEN){ showToast('Create an account or log in to add items to your cart'); openAccountModal(); return; }
+  const existing = CART.find(i=>i.product_id===productId);
+  const qty = existing ? existing.quantity + 1 : 1;
+  try{
+    await api('/api/cart', { method:'POST', auth:'customer', body: JSON.stringify({ product_id: productId, quantity: qty }) });
+    await refreshCart();
+    showToast('Added to cart 🧺');
+  }catch(e){ showToast('Could not add to cart'); }
+}
+
+async function refreshCart(){
+  try{ CART = await api('/api/cart', { auth:'customer' }); }catch(e){ CART = []; }
+  renderCartDrawer();
+}
+
+function renderCartDrawer(){
+  const list = document.getElementById('cart-items-list');
+  const countEl = document.getElementById('cart-count');
+  const totalQty = CART.reduce((s,i)=>s+i.quantity,0);
+  countEl.textContent = totalQty;
+  countEl.style.display = totalQty > 0 ? 'inline-block' : 'none';
+  list.innerHTML = '';
+  if (CART.length === 0){
+    list.innerHTML = '<div class="cart-empty">Your cart is empty — add something lovely from the shop 🧶</div>';
+  } else {
+    CART.forEach(i=>{
+      const el = document.createElement('div');
+      el.className = 'c-item';
+      el.innerHTML = `
+        <img src="${i.image_url ? API_BASE+i.image_url : ''}">
+        <div class="c-info">
+          <div class="name">${i.name}</div>
+          <div>${fmtCents(i.price_cents)}</div>
+          <div class="c-qty">
+            <button onclick="changeQty(${i.product_id}, ${i.quantity-1})">−</button>
+            <span>${i.quantity}</span>
+            <button onclick="changeQty(${i.product_id}, ${i.quantity+1})">+</button>
+          </div>
+          <button class="remove" onclick="removeFromCart(${i.product_id})">Remove</button>
+        </div>`;
+      list.appendChild(el);
+    });
+  }
+  const total = CART.reduce((s,i)=>s+i.price_cents*i.quantity,0);
+  document.getElementById('cart-total').textContent = fmtCents(total);
+  document.getElementById('checkout-btn').disabled = CART.length === 0;
+}
+
+async function changeQty(productId, qty){
+  if (qty <= 0) return removeFromCart(productId);
+  await api('/api/cart', { method:'POST', auth:'customer', body: JSON.stringify({ product_id: productId, quantity: qty }) });
+  await refreshCart();
+}
+async function removeFromCart(productId){
+  await api(`/api/cart/${productId}`, { method:'DELETE', auth:'customer' });
+  await refreshCart();
+}
+function openCart(){
+  document.getElementById('cart-overlay').classList.add('show');
+  document.getElementById('cart-drawer').classList.add('show');
+}
+function closeCart(){
+  document.getElementById('cart-overlay').classList.remove('show');
+  document.getElementById('cart-drawer').classList.remove('show');
+}
+async function startCheckout(){
+  if (!CUSTOMER_TOKEN){ showToast('Log in first'); return; }
+  try{
+    const { checkout_url } = await api('/api/checkout', { method:'POST', auth:'customer' });
+    window.location.href = checkout_url;
+  }catch(e){ showToast(e.message || 'Checkout failed'); }
+}
+
+// ---------- customer account ----------
+function openAccountModal(){ document.getElementById('account-modal').classList.add('show'); }
+function closeAccountModal(){ document.getElementById('account-modal').classList.remove('show'); }
+function switchAccountTab(tab){
+  document.querySelectorAll('.modal-tab').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
+  document.querySelectorAll('.modal-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+}
+function updateAccountUI(){
+  const loggedIn = !!CUSTOMER_TOKEN && !!CUSTOMER;
+  document.getElementById('account-logged-in').style.display = loggedIn ? 'block' : 'none';
+  document.getElementById('account-forms').style.display = loggedIn ? 'none' : 'block';
+  if (loggedIn){
+    document.getElementById('account-name-display').textContent = CUSTOMER.name;
+    document.getElementById('account-email-display').textContent = CUSTOMER.email;
+  }
+}
+async function customerRegister(evt){
+  evt.preventDefault();
+  const errEl = document.getElementById('signup-error');
+  errEl.style.display = 'none';
+  const body = {
+    name: document.getElementById('reg-name').value,
+    email: document.getElementById('reg-email').value,
+    phone: document.getElementById('reg-phone').value,
+    password: document.getElementById('reg-password').value,
+    marketing_opt_in: document.getElementById('reg-marketing').checked,
+  };
+  try{
+    const data = await api('/api/customers/register', { method:'POST', body: JSON.stringify(body) });
+    CUSTOMER_TOKEN = data.token; CUSTOMER = data.customer;
+    localStorage.setItem('deshonda_customer_token', CUSTOMER_TOKEN);
+    localStorage.setItem('deshonda_customer', JSON.stringify(CUSTOMER));
+    updateAccountUI(); closeAccountModal(); await refreshCart();
+    showToast(`Welcome, ${CUSTOMER.name}! Your account is ready.`);
+  }catch(e){ errEl.textContent = e.message; errEl.style.display = 'block'; }
+}
+async function customerLogin(evt){
+  evt.preventDefault();
+  const errEl = document.getElementById('login-error');
+  errEl.style.display = 'none';
+  const email = document.getElementById('login-email').value;
+  const password = document.getElementById('login-password').value;
+  try{
+    const data = await api('/api/customers/login', { method:'POST', body: JSON.stringify({ email, password }) });
+    CUSTOMER_TOKEN = data.token; CUSTOMER = data.customer;
+    localStorage.setItem('deshonda_customer_token', CUSTOMER_TOKEN);
+    localStorage.setItem('deshonda_customer', JSON.stringify(CUSTOMER));
+    updateAccountUI(); closeAccountModal(); await refreshCart();
+    showToast(`Welcome back, ${CUSTOMER.name}!`);
+  }catch(e){ errEl.textContent = e.message; errEl.style.display = 'block'; }
+}
+function customerLogout(){
+  CUSTOMER_TOKEN = null; CUSTOMER = null;
+  localStorage.removeItem('deshonda_customer_token');
+  localStorage.removeItem('deshonda_customer');
+  CART = []; renderCartDrawer(); updateAccountUI();
+  showToast('Logged out');
+}
+
+// ---------- QR ----------
+function generateQR(){
+  const url = document.getElementById('qr-url').value.trim();
+  if(!url){ showToast('Paste your page link first'); return; }
+  const box = document.getElementById('qr-box');
+  box.innerHTML = '';
+  new QRCode(box, { text: url, width:180, height:180, colorDark:"#0E2A20", colorLight:"#F3E9D6" });
+}
+
+// ---------- admin auth ----------
+function showAdminLock(){
+  document.getElementById('public-view').style.display = 'none';
+  document.getElementById('admin-view').style.display = 'block';
+  document.getElementById('admin-lock-screen').style.display = 'block';
+  document.getElementById('admin-dashboard').style.display = 'none';
+}
+function exitAdmin(){
+  document.getElementById('admin-view').style.display = 'none';
+  document.getElementById('public-view').style.display = 'block';
+  document.getElementById('admin-pass').value = '';
+}
+async function tryAdminLogin(){
+  const val = document.getElementById('admin-pass').value;
+  try{
+    const { token } = await api('/api/admin/login', { method:'POST', body: JSON.stringify({ password: val }) });
+    ADMIN_TOKEN = token;
+    sessionStorage.setItem('deshonda_admin_token', token);
+    document.getElementById('admin-lock-screen').style.display = 'none';
+    document.getElementById('admin-dashboard').style.display = 'block';
+    await loadAll();
+  } catch(e){ showToast('Incorrect passcode'); }
+}
+function switchTab(tab){
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active', b.dataset.tab===tab));
+  document.querySelectorAll('.admin-panel').forEach(p=>p.classList.remove('active'));
+  document.getElementById('panel-'+tab).classList.add('active');
+}
+
+// ---------- admin: accounting ----------
+function fmt(n){ return '$' + Number(n).toFixed(2); }
+function renderLedger(){
+  const body = document.getElementById('ledger-body');
+  body.innerHTML = '';
+  let accrued=0, received=0;
+  LEDGER.forEach(entry=>{
+    const amt = Number(entry.amount);
+    if(entry.status === 'received') received += amt; else accrued += amt;
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${new Date(entry.created_at).toLocaleDateString()}</td><td>${entry.description}</td><td>${entry.category}</td>
+      <td><span class="status-chip status-${entry.status}">${entry.status==='received'?'Received':'Accrued'}</span></td>
+      <td>${fmt(amt)}</td><td><button class="del-btn" onclick="deleteEntry(${entry.id})">Remove</button></td>`;
+    body.appendChild(tr);
+  });
+  document.getElementById('stat-accrued').textContent = fmt(accrued+received);
+  document.getElementById('stat-outstanding').textContent = fmt(accrued);
+  document.getElementById('stat-received').textContent = fmt(received);
+}
+async function addEntry(evt){
+  evt.preventDefault();
+  const description = document.getElementById('e-desc').value;
+  const category = document.getElementById('e-cat').value;
+  const amount = document.getElementById('e-amount').value;
+  const status = document.getElementById('e-status').value;
+  try{
+    await api('/api/ledger', { method:'POST', auth:'admin', body: JSON.stringify({ description, category, amount, status }) });
+    LEDGER = await api('/api/ledger', { auth:'admin' });
+    renderLedger(); evt.target.reset(); showToast('Entry added to the ledger');
+  }catch(e){ showToast('Could not add entry — try logging in again'); }
+}
+async function deleteEntry(id){
+  await api(`/api/ledger/${id}`, { method:'DELETE', auth:'admin' });
+  LEDGER = LEDGER.filter(e=>e.id!==id); renderLedger();
+}
+
+// ---------- admin: products ----------
+async function addProduct(evt){
+  evt.preventDefault();
+  const form = new FormData();
+  form.append('name', document.getElementById('prod-name').value);
+  form.append('description', document.getElementById('prod-desc').value);
+  form.append('price_cents', Math.round(parseFloat(document.getElementById('prod-price').value) * 100));
+  form.append('category', document.getElementById('prod-cat').value);
+  const fileInput = document.getElementById('prod-image');
+  if (fileInput.files[0]) form.append('image', fileInput.files[0]);
+  try{
+    await api('/api/admin/products', { method:'POST', auth:'admin', body: form });
+    const allProducts = await api('/api/admin/products', { auth:'admin' });
+    renderAdminProducts(allProducts);
+    PRODUCTS = await api('/api/products'); renderShop();
+    evt.target.reset(); showToast('Product added to the shop');
+  }catch(e){ showToast('Could not add product'); }
+}
+function renderAdminProducts(all){
+  const grid = document.getElementById('admin-products-grid');
+  grid.innerHTML = '';
+  all.forEach(p=>{
+    const el = document.createElement('div');
+    el.className = 'admin-g-card';
+    el.innerHTML = `${p.image_url ? `<img src="${API_BASE}${p.image_url}">` : `<div style="display:flex;align-items:center;justify-content:center;height:100%;background:var(--sand-2);font-size:0.8rem;padding:8px;text-align:center;">${p.name}</div>`}
+      <button onclick="deleteProduct(${p.id})">×</button>`;
+    grid.appendChild(el);
+  });
+}
+async function deleteProduct(id){
+  await api(`/api/admin/products/${id}`, { method:'DELETE', auth:'admin' });
+  const allProducts = await api('/api/admin/products', { auth:'admin' });
+  renderAdminProducts(allProducts);
+  PRODUCTS = await api('/api/products'); renderShop();
+}
+
+// ---------- admin: orders ----------
+function renderOrders(){
+  const body = document.getElementById('orders-body');
+  body.innerHTML = '';
+  document.getElementById('orders-empty').style.display = ORDERS.length ? 'none' : 'block';
+  ORDERS.forEach(o=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${new Date(o.created_at).toLocaleDateString()}</td><td>${o.name}</td><td>${o.email}</td>
+      <td>${fmtCents(o.total_cents)}</td><td><span class="status-chip status-${o.status}">${o.status}</span></td>`;
+    body.appendChild(tr);
+  });
+}
+
+// ---------- admin: gallery upload ----------
+document.getElementById('photo-input').addEventListener('change', async (evt)=>{
+  const files = Array.from(evt.target.files);
+  const caption = document.getElementById('photo-caption').value;
+  for(const file of files){
+    const form = new FormData();
+    form.append('photo', file); form.append('caption', caption);
+    try{ await api('/api/gallery', { method:'POST', auth:'admin', body: form }); }
+    catch(e){ showToast('Upload failed for ' + file.name); }
+  }
+  GALLERY = await api('/api/gallery');
+  renderGalleryPublic(); renderAdminGallery();
+  document.getElementById('photo-caption').value = ''; evt.target.value = '';
+  showToast('Photo added to the gallery');
+});
+function renderAdminGallery(){
+  const grid = document.getElementById('admin-gallery-grid');
+  grid.innerHTML = '';
+  GALLERY.forEach(img=>{
+    const el = document.createElement('div');
+    el.className = 'admin-g-card';
+    el.innerHTML = `<img src="${API_BASE}${img.url}"><button onclick="removePhoto(${img.id})">×</button>`;
+    grid.appendChild(el);
+  });
+}
+async function removePhoto(id){
+  await api(`/api/gallery/${id}`, { method:'DELETE', auth:'admin' });
+  GALLERY = GALLERY.filter(g=>g.id!==id);
+  renderGalleryPublic(); renderAdminGallery();
+}
+
+// ---------- admin: customers ----------
+function renderCustomers(){
+  const body = document.getElementById('customers-body');
+  body.innerHTML = '';
+  document.getElementById('customers-empty').style.display = SIGNUPS.length ? 'none' : 'block';
+  SIGNUPS.forEach(s=>{
+    const tr = document.createElement('tr');
+    tr.innerHTML = `<td>${new Date(s.created_at).toLocaleDateString()}</td><td>${s.name}</td><td>${s.email}</td><td>${s.phone||'—'}</td>`;
+    body.appendChild(tr);
+  });
+}
+function exportCustomers(){
+  fetch(API_BASE + '/api/signups/export.csv', { headers:{ Authorization: `Bearer ${ADMIN_TOKEN}` } })
+    .then(r=>r.blob())
+    .then(blob=>{
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url; link.download = 'deshonda-customer-list.csv';
+      link.click();
+      URL.revokeObjectURL(url);
+    });
+}
+
+loadAll();
+</script>
+</body>
+</html>

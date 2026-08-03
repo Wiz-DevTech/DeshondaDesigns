@@ -1,0 +1,41 @@
+version: "3.8"
+
+services:
+  deshonda-db:
+    image: postgres:16-alpine
+    container_name: deshonda-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: deshonda
+      POSTGRES_USER: deshonda
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+    volumes:
+      - deshonda-db-data:/var/lib/postgresql/data
+      - ./db/schema.sql:/docker-entrypoint-initdb.d/schema.sql:ro
+
+  deshonda-api:
+    build: ./server
+    container_name: deshonda-api
+    restart: unless-stopped
+    depends_on:
+      - deshonda-db
+    environment:
+      DB_HOST: deshonda-db
+      DB_PORT: 5432
+      DB_NAME: deshonda
+      DB_USER: deshonda
+      DB_PASSWORD: ${DB_PASSWORD}
+      JWT_SECRET: ${JWT_SECRET}
+      ADMIN_PASSWORD_HASH: ${ADMIN_PASSWORD_HASH}
+      ALLOWED_ORIGIN: ${ALLOWED_ORIGIN}
+      FRONTEND_URL: ${FRONTEND_URL}
+      STRIPE_SECRET_KEY: ${STRIPE_SECRET_KEY}
+      STRIPE_WEBHOOK_SECRET: ${STRIPE_WEBHOOK_SECRET}
+    ports:
+      - "127.0.0.1:4010:4000"
+    volumes:
+      - deshonda-uploads:/app/uploads
+
+volumes:
+  deshonda-db-data:
+  deshonda-uploads:

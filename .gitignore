@@ -1,0 +1,37 @@
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Cloudflare
+.wrangler/
+.dev.vars
+
+# Build output
+dist/
+build/
+.output/
+.vercel/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp
+
+# Uploads (if ever run locally with local disk storage)
+uploads/
