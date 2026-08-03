@@ -29,5 +29,8 @@ mkdir -p dist
 echo "[pages-build] copying static assets"
 cp -r frontend/out/* dist/
 
+echo "[pages-build] copying admin panel (admin.html)"
+cp admin.html dist/admin.html
+
 echo "[pages-build] done — dist/ ready:"
 ls dist | head

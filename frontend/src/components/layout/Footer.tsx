@@ -75,6 +75,10 @@ export default function Footer() {
         <span>🧺 Gift Baskets</span>
         <span>📍 Custom Orders Welcome</span>
       </div>
+
+      <div className="mt-8 text-xs opacity-40">
+        <a href="/admin.html" className="hover:opacity-100 hover:underline">Admin</a>
+      </div>
     </footer>
   );
 }

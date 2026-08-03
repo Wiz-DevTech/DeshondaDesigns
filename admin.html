@@ -1,0 +1,684 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Deshonda's Admin — Designs by Deshonda</title>
+<style>
+  :root{
+    --jade:#2f6b5c; --jade-deep:#1f4a40; --plum:#7a4b6e; --purple:#c9a9d4;
+    --sand:#f4ecdf; --sand-2:#ece1cf; --paper:#fbf7ef; --ink:#2b2320; --red:#b23b3b; --green:#2f8f5b;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  body{font-family:"Segoe UI", system-ui, -apple-system, Arial, sans-serif; background:var(--sand); color:var(--ink); min-height:100vh;}
+  button{font:inherit; cursor:pointer;}
+  input, select, textarea{font:inherit;}
+  .hidden{display:none !important;}
+
+  /* login */
+  #login-view{min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;}
+  .login-card{background:var(--paper); border:1px solid #00000014; border-radius:14px; box-shadow:0 8px 30px #00000012; padding:36px 32px; width:100%; max-width:380px; text-align:center;}
+  .login-card img{height:56px; width:auto; margin-bottom:10px;}
+  .login-card h1{font-size:20px; margin-bottom:4px;}
+  .login-card p{font-size:13px; color:#6b5a49; margin-bottom:22px;}
+  .login-card label{display:block; text-align:left; font-size:13px; color:#6b5a49; margin-bottom:6px;}
+  .login-card input{width:100%; padding:11px 12px; border:1px solid #0000001f; border-radius:8px; background:#fff; font-size:15px; margin-bottom:16px;}
+  .login-card button{width:100%; padding:12px; background:var(--jade-deep); color:#fff; border:none; border-radius:8px; font-size:15px; font-weight:600;}
+  .login-card button:disabled{opacity:.6;}
+  .login-err{color:var(--red); font-size:13px; margin-top:10px; min-height:18px;}
+
+  /* panel */
+  #panel-view{padding:20px 20px 60px; max-width:1060px; margin:0 auto;}
+  .topbar{display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-bottom:18px; padding-bottom:14px; border-bottom:2px solid #00000010;}
+  .topbar .brand{display:flex; align-items:center; gap:10px;}
+  .topbar .brand img{height:34px; width:auto;}
+  .topbar h1{font-size:18px; color:var(--jade-deep);}
+  .topbar .who{font-size:12px; color:#6b5a49;}
+  .btn{display:inline-block; padding:9px 14px; border-radius:8px; border:1px solid transparent; font-size:14px; font-weight:600;}
+  .btn-primary{background:var(--jade-deep); color:#fff;}
+  .btn-secondary{background:#fff; border-color:#0000001f; color:var(--ink);}
+  .btn-danger{background:#fff; border-color:#0000001f; color:var(--red);}
+  .btn-danger:hover{background:var(--red); color:#fff;}
+  .btn-sm{padding:5px 10px; font-size:12.5px;}
+  .btn:disabled{opacity:.55; cursor:not-allowed;}
+
+  /* help toggle switch */
+  .help-toggle{display:flex; align-items:center; gap:7px; font-size:13px; color:#6b5a49; cursor:pointer; user-select:none;}
+  .help-toggle input{width:15px; height:15px; accent-color:var(--jade-deep); cursor:pointer;}
+
+  .tabs{display:flex; gap:6px; flex-wrap:wrap; margin-bottom:20px;}
+  .tabs button{background:#fff; border:1px solid #00000014; border-radius:8px; padding:9px 16px; font-size:14px; font-weight:600; color:#6b5a49;}
+  .tabs button.active{background:var(--jade-deep); color:#fff; border-color:var(--jade-deep);}
+
+  .card{background:var(--paper); border:1px solid #00000010; border-radius:12px; padding:18px; margin-bottom:18px;}
+  .card h2{font-size:16px; color:var(--jade-deep); margin-bottom:12px;}
+  .grid{display:grid; gap:12px; grid-template-columns:repeat(auto-fill,minmax(190px,1fr));}
+  .tile{border:1px solid #00000010; border-radius:10px; overflow:hidden; background:#fff;}
+  .tile img{width:100%; height:140px; object-fit:cover; display:block; background:var(--sand);}
+  .tile .meta{padding:9px 11px;}
+  .tile .meta .cap{font-size:13px; font-weight:600; margin-bottom:2px;}
+  .tile .meta .cat{font-size:11.5px; color:#6b5a49; margin-bottom:8px;}
+  .tile .row{display:flex; gap:6px; justify-content:space-between;}
+
+  table{width:100%; border-collapse:collapse; font-size:13.5px; background:#fff; border-radius:8px; overflow:hidden;}
+  th, td{padding:9px 10px; text-align:left; border-bottom:1px solid #0000000d;}
+  th{background:var(--sand-2); color:#5a4a3c; font-size:12.5px;}
+  .badge{display:inline-block; padding:2px 9px; border-radius:20px; font-size:11.5px; font-weight:600;}
+  .badge-paid{background:#e3f3e9; color:var(--green);}
+  .badge-pending{background:#fdeee0; color:#b26b2c;}
+  .badge-canceled{background:#f3e2e2; color:var(--red);}
+  .badge-received{background:#e3f3e9; color:var(--green);}
+  .badge-accrued{background:#fdeee0; color:#b26b2c;}
+
+  form.f .field{margin-bottom:12px;}
+  form.f label{display:block; font-size:12.5px; color:#6b5a49; margin-bottom:4px;}
+  form.f input[type=text], form.f input[type=number], form.f input[type=email], form.f input[type=password], form.f select, form.f textarea{
+    width:100%; padding:9px 11px; border:1px solid #0000001f; border-radius:7px; background:#fff; font-size:14px;}
+  form.f textarea{min-height:64px; resize:vertical;}
+  form.f .hint{font-size:11.5px; color:#8a7766; margin-top:3px;}
+  .form-row{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+  .upload-preview{width:100%; max-height:140px; object-fit:cover; border-radius:8px; margin-top:8px; display:none; background:var(--sand);}
+
+  /* question-mark help badge */
+  .q{display:inline-flex; align-items:center; justify-content:center; width:17px; height:17px; border-radius:50%;
+     background:var(--purple); color:var(--jade-deep); border:none; font-size:11px; font-weight:700; line-height:1;
+     margin-left:6px; vertical-align:middle;}
+  .q:hover{background:var(--plum); color:#fff;}
+  .lbl{display:flex; align-items:center;}
+
+  /* help popup card */
+  #help-pop{position:fixed; inset:0; z-index:90; display:flex; align-items:center; justify-content:center; padding:20px;}
+  #help-pop .backdrop{position:absolute; inset:0; background:#00000045;}
+  #help-pop .box{position:relative; background:var(--paper); border-radius:14px; box-shadow:0 10px 40px #00000038; max-width:440px; width:100%; padding:26px 26px 20px;}
+  #help-pop .box h3{color:var(--jade-deep); font-size:16px; margin-bottom:10px; display:flex; align-items:center; gap:8px;}
+  #help-pop .box p{font-size:14px; line-height:1.6; color:var(--ink);}
+  #help-pop .box .actions{display:flex; justify-content:flex-end; margin-top:18px;}
+
+  .stat-row{display:grid; gap:12px; grid-template-columns:repeat(auto-fit,minmax(140px,1fr)); margin-bottom:18px;}
+  .stat{background:var(--paper); border:1px solid #00000010; border-radius:12px; padding:14px 16px;}
+  .stat .n{font-size:26px; font-weight:700; color:var(--jade-deep);}
+  .stat .l{font-size:12px; color:#6b5a49; margin-top:2px;}
+
+  .empty{text-align:center; color:#8a7766; font-size:13.5px; padding:26px 10px; background:#fff; border:1px dashed #0000001a; border-radius:10px;}
+  .toast{position:fixed; left:50%; bottom:26px; transform:translateX(-50%); background:var(--jade-deep); color:#fff; padding:11px 20px; border-radius:8px; font-size:14px; box-shadow:0 6px 24px #00000030; z-index:99; opacity:0; pointer-events:none; transition:opacity .25s;}
+  .toast.show{opacity:1;}
+  .toast.err{background:var(--red);}
+  .muted{color:#6b5a49; font-size:12.5px;}
+  .flex{display:flex; gap:10px; align-items:center; flex-wrap:wrap;}
+  .right{justify-content:flex-end;}
+  .mt{margin-top:14px;}
+  @media (max-width:640px){ .form-row{grid-template-columns:1fr;} }
+</style>
+</head>
+<body>
+
+<!-- ============ LOGIN ============ -->
+<div id="login-view">
+  <div class="login-card">
+    <img src="/images/branding/logo.png" alt="Designs by Deshonda" onerror="this.style.display='none'" />
+    <h1>Deshonda's Admin</h1>
+    <p>Sign in to manage the shop, gallery, and customers.</p>
+    <form id="login-form">
+      <label for="pass">Admin passcode</label>
+      <input type="password" id="pass" placeholder="Enter your passcode" autocomplete="current-password" required />
+      <button type="submit" id="login-btn">Sign In</button>
+      <div class="login-err" id="login-err"></div>
+    </form>
+  </div>
+</div>
+
+<!-- ============ PANEL ============ -->
+<div id="panel-view" class="hidden">
+  <div class="topbar">
+    <div class="brand">
+      <img src="/images/branding/logo.png" alt="" onerror="this.style.display='none'" />
+      <div>
+        <h1>Deshonda's Admin</h1>
+        <div class="who" id="who-line">Signed in</div>
+      </div>
+    </div>
+    <div class="flex">
+      <label class="help-toggle" title="Show or hide the little ? explanation buttons">
+        <input type="checkbox" id="help-on" checked /> Help tips
+      </label>
+      <button class="btn btn-secondary" onclick="logout()">Sign out</button>
+    </div>
+  </div>
+
+  <div class="tabs">
+    <button data-tab="overview" class="active" onclick="showTab('overview')">Overview</button>
+    <button data-tab="gallery" onclick="showTab('gallery')">Gallery Photos</button>
+    <button data-tab="products" onclick="showTab('products')">Products</button>
+    <button data-tab="customers" onclick="showTab('customers')">Customers</button>
+    <button data-tab="orders" onclick="showTab('orders')">Orders</button>
+    <button data-tab="ledger" onclick="showTab('ledger')">Bookkeeping</button>
+  </div>
+
+  <!-- OVERVIEW -->
+  <section id="tab-overview">
+    <div class="stat-row">
+      <div class="stat"><div class="n" id="stat-products">–</div><div class="l">Products in shop</div></div>
+      <div class="stat"><div class="n" id="stat-customers">–</div><div class="l">Customers on the list</div></div>
+      <div class="stat"><div class="n" id="stat-orders">–</div><div class="l">Orders</div></div>
+      <div class="stat"><div class="n" id="stat-paid">–</div><div class="l">Paid orders</div></div>
+    </div>
+    <div class="card">
+      <h2>Quick guide</h2>
+      <ul class="muted" style="padding-left:18px; line-height:1.8;">
+        <li><b>Products</b> — add what you sell. Customers see these in the Shop.</li>
+        <li><b>Gallery Photos</b> — show off your work on the site.</li>
+        <li><b>Customers</b> — everyone who joined your list. Download as a file anytime.</li>
+        <li><b>Orders</b> — purchases customers have made.</li>
+        <li><b>Bookkeeping</b> — track money owed and received.</li>
+      </ul>
+      <div class="flex mt"><button class="q" data-help="welcome" title="Why am I here?">?</button><span class="muted">New here? Tap the ? for a quick tour.</span></div>
+    </div>
+  </section>
+
+  <!-- GALLERY -->
+  <section id="tab-gallery" class="hidden">
+    <div class="card">
+      <h2>Add a photo</h2>
+      <form class="f" id="gallery-form">
+        <div class="form-row">
+          <div class="field">
+            <span class="lbl"><label>Photo</label><button type="button" class="q" data-help="photo">?</button></span>
+            <input type="file" id="g-photo" accept="image/*" required onchange="previewFile(this, 'g-preview')" />
+            <img class="upload-preview" id="g-preview" alt="preview" />
+          </div>
+          <div>
+            <div class="field">
+              <span class="lbl"><label>Caption (what it is)</label><button type="button" class="q" data-help="caption">?</button></span>
+              <input type="text" id="g-caption" placeholder="e.g. Christmas Gift Basket" />
+            </div>
+            <div class="field">
+              <span class="lbl"><label>Category</label><button type="button" class="q" data-help="category">?</button></span>
+              <input type="text" id="g-category" placeholder="e.g. basket or crochet" />
+            </div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" id="g-submit">Upload Photo</button>
+      </form>
+    </div>
+    <div class="grid" id="gallery-grid"></div>
+    <div class="empty hidden" id="gallery-empty">No photos yet — add your first one above.</div>
+  </section>
+
+  <!-- PRODUCTS -->
+  <section id="tab-products" class="hidden">
+    <div class="card" id="product-form-card">
+      <h2 id="product-form-title">Add a product</h2>
+      <form class="f" id="product-form">
+        <div class="form-row">
+          <div class="field">
+            <span class="lbl"><label>Product name *</label><button type="button" class="q" data-help="product-name">?</button></span>
+            <input type="text" id="p-name" required placeholder="e.g. Gift Basket — Medium" />
+          </div>
+          <div class="field">
+            <span class="lbl"><label>Price (dollars) *</label><button type="button" class="q" data-help="price">?</button></span>
+            <input type="number" id="p-price" min="0" step="0.01" required placeholder="e.g. 45.00" />
+            <div class="hint">Enter dollars — $45.00, not cents.</div>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl"><label>Description</label><button type="button" class="q" data-help="description">?</button></span>
+          <textarea id="p-desc" placeholder="What's in it, size, delivery…"></textarea>
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <span class="lbl"><label>Category</label><button type="button" class="q" data-help="category">?</button></span>
+            <input type="text" id="p-category" placeholder="e.g. basket or crochet" />
+          </div>
+          <div class="field">
+            <span class="lbl"><label>Photo (optional)</label><button type="button" class="q" data-help="product-photo">?</button></span>
+            <input type="file" id="p-image" accept="image/*" onchange="previewFile(this, 'p-preview')" />
+            <img class="upload-preview" id="p-preview" alt="preview" />
+          </div>
+        </div>
+        <div class="field flex">
+          <span class="lbl"><label style="margin:0"><input type="checkbox" id="p-active" checked /> Show in shop</label><button type="button" class="q" data-help="active">?</button></span>
+        </div>
+        <div class="flex">
+          <button type="submit" class="btn btn-primary" id="p-submit">Save Product</button>
+          <button type="button" class="btn btn-secondary hidden" id="p-cancel" onclick="resetProductForm()">Cancel edit</button>
+        </div>
+      </form>
+    </div>
+    <div class="grid" id="products-grid"></div>
+    <div class="empty hidden" id="products-empty">No products yet — add your first one above.</div>
+  </section>
+
+  <!-- CUSTOMERS -->
+  <section id="tab-customers" class="hidden">
+    <div class="flex right" style="margin-bottom:14px;">
+      <button class="btn btn-secondary" onclick="downloadCsv()">Download list (CSV)</button>
+      <button type="button" class="q" data-help="csv">?</button>
+    </div>
+    <div class="card" style="padding:0; overflow-x:auto;">
+      <table>
+        <thead><tr><th>Name</th><th>Email</th><th>Phone</th><th>Joined</th></tr></thead>
+        <tbody id="customers-tbody"></tbody>
+      </table>
+      <div class="empty hidden" id="customers-empty">No customers yet.</div>
+    </div>
+  </section>
+
+  <!-- ORDERS -->
+  <section id="tab-orders" class="hidden">
+    <div class="card" style="padding:0; overflow-x:auto;">
+      <table>
+        <thead><tr><th>Order</th><th>Customer</th><th>Total</th><th>Status</th><th>Date</th></tr></thead>
+        <tbody id="orders-tbody"></tbody>
+      </table>
+      <div class="empty hidden" id="orders-empty">No orders yet.</div>
+    </div>
+  </section>
+
+  <!-- LEDGER -->
+  <section id="tab-ledger" class="hidden">
+    <div class="stat-row">
+      <div class="stat"><div class="n" id="ledger-total">–</div><div class="l">Total (all)</div></div>
+      <div class="stat"><div class="n" id="ledger-received">–</div><div class="l">Received</div></div>
+      <div class="stat"><div class="n" id="ledger-outstanding">–</div><div class="l">Still owed</div></div>
+    </div>
+    <div class="card">
+      <h2>Add an entry</h2>
+      <form class="f" id="ledger-form">
+        <div class="field">
+          <span class="lbl"><label>What is it? *</label><button type="button" class="q" data-help="ledger-desc">?</button></span>
+          <input type="text" id="l-desc" required placeholder="e.g. Holiday basket order — 6 baskets" />
+        </div>
+        <div class="form-row">
+          <div class="field">
+            <span class="lbl"><label>Amount (dollars) *</label><button type="button" class="q" data-help="ledger-amount">?</button></span>
+            <input type="number" id="l-amount" min="0" step="0.01" required placeholder="e.g. 150.00" />
+          </div>
+          <div class="field">
+            <span class="lbl"><label>Status</label><button type="button" class="q" data-help="ledger-status">?</button></span>
+            <select id="l-status">
+              <option value="accrued">Owed to me (not paid yet)</option>
+              <option value="received">Received (paid)</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <span class="lbl"><label>Category</label><button type="button" class="q" data-help="ledger-category">?</button></span>
+          <input type="text" id="l-category" placeholder="e.g. Custom order, Wholesale, Event" />
+        </div>
+        <button type="submit" class="btn btn-primary" id="l-submit">Add Entry</button>
+      </form>
+    </div>
+    <div class="card" style="padding:0; overflow-x:auto;">
+      <table>
+        <thead><tr><th>Description</th><th>Category</th><th>Amount</th><th>Status</th><th>Date</th><th></th></tr></thead>
+        <tbody id="ledger-tbody"></tbody>
+      </table>
+      <div class="empty hidden" id="ledger-empty">No entries yet.</div>
+    </div>
+  </section>
+</div>
+
+<!-- ============ HELP POPUP ============ -->
+<div id="help-pop" class="hidden">
+  <div class="backdrop" onclick="closeHelp()"></div>
+  <div class="box">
+    <h3><span id="help-title">Help</span></h3>
+    <p id="help-text"></p>
+    <div class="actions"><button class="btn btn-primary" onclick="closeHelp()">Got it</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+"use strict";
+const TOKEN_KEY = "deshonda_admin_token";
+const HELP_KEY = "deshonda_admin_help";
+let TOKEN = null;
+
+/* ---------- helpers ---------- */
+function $(id){ return document.getElementById(id); }
+function esc(s){ return String(s == null ? "" : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function money(cents){ return "$" + (Number(cents||0)/100).toFixed(2); }
+function dateStr(iso){ try { return new Date(iso).toLocaleString(undefined, {year:"numeric", month:"short", day:"numeric"}); } catch(e){ return iso; } }
+let toastTimer = null;
+function toast(msg, isErr){ const t = $("toast"); t.textContent = msg; t.className = "toast show" + (isErr ? " err" : ""); clearTimeout(toastTimer); toastTimer = setTimeout(()=> t.className = "toast", 3200); }
+
+async function api(path, opts = {}){
+  const headers = { ...(opts.headers || {}) };
+  if (opts.body && !(opts.body instanceof FormData)) headers["Content-Type"] = "application/json";
+  if (TOKEN) headers["Authorization"] = "Bearer " + TOKEN;
+  const res = await fetch(path, { ...opts, headers });
+  const text = await res.text();
+  const data = text ? JSON.parse(text) : null;
+  if (res.status === 401) { logout(); throw new Error("Session expired — please sign in again."); }
+  if (!res.ok) throw new Error((data && data.error) || "Something went wrong (" + res.status + ")");
+  return data;
+}
+
+function previewFile(input, imgId){
+  const img = $(imgId);
+  if (input.files && input.files[0]){ img.src = URL.createObjectURL(input.files[0]); img.style.display = "block"; }
+  else { img.style.display = "none"; }
+}
+
+function setBusy(btnId, busy, label){ const b = $(btnId); if(!b) return; if(busy){ b.dataset.label = b.textContent; b.textContent = "Please wait…"; b.disabled = true; } else { b.textContent = b.dataset.label || label; b.disabled = false; } }
+
+/* ---------- help popups ---------- */
+const HELP = {
+  welcome: ["Welcome to your admin panel", "This is where you run Deshonda Designs. Add products to sell, upload photos of your work, see who joined your list, track orders, and keep your bookkeeping.\n\nThe little ? buttons explain each option. You can turn all of them off with the \u201cHelp tips\u201d switch at the top."],
+  photo: ["Adding a photo", "Pick a picture from your phone or computer. It gets added to the site automatically. Photos should be clear and well-lit — customers love a good look at the work!"],
+  caption: ["Caption", "A short label for the photo, like \u201cChristmas Gift Basket\u201d. This shows under the photo on the site."],
+  category: ["Category", "A word you use to group things, like \u201cbasket\u201d or \u201ccrochet\u201d. You can type anything you like — it helps keep your gallery organized."],
+  "product-name": ["Product name", "What customers will see in the shop. Keep it simple, like \u201cGift Basket — Medium\u201d or \u201cCrochet Baby Blanket\u201d."],
+  price: ["Price", "How much the item costs, in dollars. Type 45 for $45.00, or 45.50 for $45.50. No need to type the dollar sign or cents."],
+  description: ["Description", "A few sentences about the item — what's in it, the size, how it's made, delivery. This helps customers decide to buy."],
+  "product-photo": ["Product photo", "A picture of the item for the shop. Not required, but items with photos sell much better."],
+  active: ["Show in shop", "Keep this checked while the item is for sale. Uncheck it to hide the item from customers WITHOUT deleting it — handy for \u201csold out for now\u201d or seasonal items."],
+  csv: ["Download list (CSV)", "Downloads everyone who joined your list as a file you can open in Excel or Google Sheets — perfect for holiday email or text campaigns."],
+  "ledger-desc": ["Bookkeeping entry", "What the money is for, like \u201c6 baskets for the church bazaar\u201d or \u201cCrochet order — Mrs. Carter\u201d."],
+  "ledger-amount": ["Amount", "How much money is involved, in dollars. Type 150 for $150.00."],
+  "ledger-status": ["Status — important", "\u201cOwed to me\u201d means the work is done but you haven't been paid yet (money coming). \u201cReceived\u201d means the money is already in your hands. You can add the same job twice if you want to track it as owed first, then received."],
+  "ledger-category": ["Category", "Your own label for bookkeeping, like \u201cCustom order\u201d, \u201cWholesale\u201d, or \u201cEvent\u201d. Purely for your records."]
+};
+
+function helpOn(){ return $("help-on").checked; }
+
+function showHelp(key){
+  const item = HELP[key] || ["Help", "No explanation for this one yet."];
+  $("help-title").textContent = item[0];
+  $("help-text").innerHTML = item[1].split("\n").map(p => esc(p)).join("<br/><br/>");
+  $("help-pop").classList.remove("hidden");
+}
+function closeHelp(){ $("help-pop").classList.add("hidden"); }
+
+function refreshHelp(){
+  const on = helpOn();
+  document.querySelectorAll(".q").forEach(q => q.classList.toggle("hidden", !on));
+}
+
+$("help-on").addEventListener("change", () => {
+  localStorage.setItem(HELP_KEY, helpOn() ? "1" : "0");
+  refreshHelp();
+});
+
+document.addEventListener("click", (e) => {
+  const q = e.target.closest(".q");
+  if (q && helpOn()) showHelp(q.dataset.help);
+});
+
+/* ---------- auth ---------- */
+$("login-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const pass = $("pass").value;
+  $("login-err").textContent = "";
+  setBusy("login-btn", true, "Sign In");
+  try {
+    const data = await fetch("/api/admin/login", {
+      method: "POST", headers: {"Content-Type":"application/json"},
+      body: JSON.stringify({ password: pass })
+    }).then(r => r.json());
+    if (!data.token) throw new Error("Incorrect passcode — please try again.");
+    TOKEN = data.token;
+    sessionStorage.setItem(TOKEN_KEY, TOKEN);
+    $("pass").value = "";
+    enterPanel();
+  } catch (err) {
+    $("login-err").textContent = err.message || "Incorrect passcode.";
+  } finally { setBusy("login-btn", false, "Sign In"); }
+});
+
+function logout(){
+  TOKEN = null; sessionStorage.removeItem(TOKEN_KEY);
+  $("panel-view").classList.add("hidden");
+  $("login-view").classList.remove("hidden");
+}
+
+function enterPanel(){
+  $("login-view").classList.add("hidden");
+  $("panel-view").classList.remove("hidden");
+  showTab("overview");
+  refreshAll();
+  const firstTime = !localStorage.getItem(HELP_KEY);
+  if (firstTime) showHelp("welcome");
+}
+
+function showTab(name){
+  document.querySelectorAll(".tabs button").forEach(b => b.classList.toggle("active", b.dataset.tab === name));
+  ["overview","gallery","products","customers","orders","ledger"].forEach(t => {
+    $("tab-" + t).classList.toggle("hidden", t !== name);
+  });
+  if (name === "gallery") loadGallery();
+  if (name === "products") loadProducts();
+  if (name === "customers") loadCustomers();
+  if (name === "orders") loadOrders();
+  if (name === "ledger") loadLedger();
+  if (name === "overview") loadOverview();
+}
+
+/* ---------- overview ---------- */
+async function loadOverview(){
+  try {
+    const [products, customers, orders] = await Promise.all([
+      api("/api/admin/products").catch(() => []),
+      api("/api/signups").catch(() => []),
+      api("/api/admin/orders").catch(() => [])
+    ]);
+    $("stat-products").textContent = (products||[]).length;
+    $("stat-customers").textContent = (customers||[]).length;
+    $("stat-orders").textContent = (orders||[]).length;
+    $("stat-paid").textContent = (orders||[]).filter(o => o.status === "paid").length;
+  } catch(e){ toast(e.message, true); }
+}
+
+/* ---------- gallery ---------- */
+$("gallery-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const fd = new FormData();
+  const file = $("g-photo").files[0];
+  if (!file) return toast("Please choose a photo first.", true);
+  fd.append("photo", file);
+  fd.append("caption", $("g-caption").value.trim());
+  fd.append("category", $("g-category").value.trim());
+  setBusy("g-submit", true, "Upload Photo");
+  try {
+    await api("/api/gallery", { method: "POST", body: fd });
+    $("gallery-form").reset(); $("g-preview").style.display = "none";
+    toast("Photo uploaded!");
+    loadGallery();
+  } catch(err){ toast(err.message, true); } finally { setBusy("g-submit", false, "Upload Photo"); }
+});
+
+async function loadGallery(){
+  try {
+    const rows = await api("/api/gallery");
+    const grid = $("gallery-grid");
+    $("gallery-empty").classList.toggle("hidden", rows.length > 0);
+    grid.innerHTML = rows.map(g => `
+      <div class="tile">
+        <img src="${esc(g.url)}" alt="${esc(g.caption)}" loading="lazy" />
+        <div class="meta">
+          <div class="cap">${esc(g.caption || "Photo")}</div>
+          <div class="cat">${esc(g.category || "")}</div>
+          <div class="row"><button class="btn btn-danger btn-sm" onclick="deleteGallery(${g.id})">Remove</button></div>
+        </div>
+      </div>`).join("");
+  } catch(e){ toast(e.message, true); }
+}
+
+async function deleteGallery(id){
+  if (!confirm("Remove this photo from the site?")) return;
+  try { await api("/api/gallery/" + id, { method: "DELETE" }); toast("Photo removed."); loadGallery(); }
+  catch(e){ toast(e.message, true); }
+}
+
+/* ---------- products ---------- */
+let editingProductId = null;
+$("product-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const name = $("p-name").value.trim();
+  const price = Math.round(parseFloat($("p-price").value) * 100);
+  if (!name || !price) return toast("Name and price are required.", true);
+  const file = $("p-image").files[0];
+  const fd = new FormData();
+  fd.append("name", name);
+  fd.append("price_cents", price);
+  fd.append("description", $("p-desc").value.trim());
+  fd.append("category", $("p-category").value.trim());
+  fd.append("active", $("p-active").checked ? "1" : "0");
+  if (file) fd.append("image", file);
+  setBusy("p-submit", true, "Save Product");
+  try {
+    if (editingProductId) {
+      const body = { name, price_cents: price, description: fd.get("description"), category: fd.get("category"), active: $("p-active").checked };
+      await api("/api/admin/products/" + editingProductId, { method: "PUT", body: JSON.stringify(body) });
+      toast("Product updated!");
+    } else {
+      await api("/api/admin/products", { method: "POST", body: fd });
+      toast("Product added to the shop!");
+    }
+    resetProductForm();
+    loadProducts();
+  } catch(err){ toast(err.message, true); } finally { setBusy("p-submit", false, "Save Product"); }
+});
+
+function editProduct(p){
+  editingProductId = p.id;
+  $("product-form-title").textContent = "Edit product — " + p.name;
+  $("p-name").value = p.name; $("p-desc").value = p.description || "";
+  $("p-price").value = (p.price_cents/100).toFixed(2);
+  $("p-category").value = p.category || "";
+  $("p-active").checked = !!p.active;
+  $("p-cancel").classList.remove("hidden");
+  $("product-form-card").scrollIntoView({behavior:"smooth"});
+}
+
+function resetProductForm(){
+  editingProductId = null;
+  $("product-form").reset();
+  $("p-preview").style.display = "none";
+  $("p-active").checked = true;
+  $("product-form-title").textContent = "Add a product";
+  $("p-cancel").classList.add("hidden");
+}
+
+async function loadProducts(){
+  try {
+    const rows = await api("/api/admin/products");
+    $("products-empty").classList.toggle("hidden", rows.length > 0);
+    $("products-grid").innerHTML = rows.map(p => `
+      <div class="tile">
+        ${p.image_url ? `<img src="${esc(p.image_url)}" alt="" loading="lazy" />` : `<div style="height:140px;background:var(--sand);display:flex;align-items:center;justify-content:center;color:#b9a58f;">no photo</div>`}
+        <div class="meta">
+          <div class="cap">${esc(p.name)}</div>
+          <div class="cat">${money(p.price_cents)}${p.active ? "" : " · hidden"}</div>
+          <div class="row">
+            <button class="btn btn-secondary btn-sm" onclick='editProduct(${JSON.stringify(p).replace(/'/g, "&#39;")})'>Edit</button>
+            <button class="btn btn-danger btn-sm" onclick="deleteProduct(${p.id})">Delete</button>
+          </div>
+        </div>
+      </div>`).join("");
+  } catch(e){ toast(e.message, true); }
+}
+
+async function deleteProduct(id){
+  if (!confirm("Delete this product? This can't be undone.")) return;
+  try { await api("/api/admin/products/" + id, { method: "DELETE" }); toast("Product deleted."); loadProducts(); }
+  catch(e){ toast(e.message, true); }
+}
+
+/* ---------- customers ---------- */
+async function loadCustomers(){
+  try {
+    const rows = await api("/api/signups");
+    $("customers-empty").classList.toggle("hidden", rows.length > 0);
+    $("customers-tbody").innerHTML = rows.map(c => `
+      <tr><td>${esc(c.name)}</td><td>${esc(c.email)}</td><td>${esc(c.phone || "")}</td><td>${dateStr(c.created_at)}</td></tr>`).join("");
+  } catch(e){ toast(e.message, true); }
+}
+
+async function downloadCsv(){
+  try {
+    const res = await fetch("/api/signups/export.csv", { headers: { "Authorization": "Bearer " + TOKEN } });
+    if (!res.ok) throw new Error("Could not download the list.");
+    const blob = await res.blob();
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "deshonda-customer-list.csv";
+    a.click();
+    toast("Customer list downloaded.");
+  } catch(e){ toast(e.message, true); }
+}
+
+/* ---------- orders ---------- */
+async function loadOrders(){
+  try {
+    const rows = await api("/api/admin/orders");
+    $("orders-empty").classList.toggle("hidden", rows.length > 0);
+    $("orders-tbody").innerHTML = rows.map(o => `
+      <tr>
+        <td>#${o.id}</td><td>${esc(o.name)} (${esc(o.email)})</td>
+        <td>${money(o.total_cents)}</td>
+        <td><span class="badge badge-${esc(o.status)}">${esc(o.status)}</span></td>
+        <td>${dateStr(o.created_at)}</td>
+      </tr>`).join("");
+  } catch(e){ toast(e.message, true); }
+}
+
+/* ---------- ledger ---------- */
+$("ledger-form").addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const amount = Math.round(parseFloat($("l-amount").value) * 100) / 100;
+  if (!$("l-desc").value.trim() || !amount) return toast("Description and amount are required.", true);
+  setBusy("l-submit", true, "Add Entry");
+  try {
+    await api("/api/ledger", { method: "POST", body: JSON.stringify({
+      description: $("l-desc").value.trim(),
+      category: $("l-category").value.trim() || "Other",
+      amount,
+      status: $("l-status").value
+    })});
+    $("ledger-form").reset();
+    toast("Entry added.");
+    loadLedger();
+  } catch(err){ toast(err.message, true); } finally { setBusy("l-submit", false, "Add Entry"); }
+});
+
+async function loadLedger(){
+  try {
+    const rows = await api("/api/ledger");
+    $("ledger-empty").classList.toggle("hidden", rows.length > 0);
+    const total = rows.reduce((s, r) => s + Number(r.amount || 0), 0);
+    const received = rows.filter(r => r.status === "received").reduce((s, r) => s + Number(r.amount || 0), 0);
+    $("ledger-total").textContent = money(total * 100);
+    $("ledger-received").textContent = money(received * 100);
+    $("ledger-outstanding").textContent = money((total - received) * 100);
+    $("ledger-tbody").innerHTML = rows.map(r => `
+      <tr>
+        <td>${esc(r.description)}</td><td>${esc(r.category || "Other")}</td>
+        <td>${money(Number(r.amount) * 100)}</td>
+        <td><span class="badge badge-${esc(r.status)}">${esc(r.status)}</span></td>
+        <td>${dateStr(r.created_at)}</td>
+        <td><button class="btn btn-danger btn-sm" onclick="deleteLedger(${r.id})">Delete</button></td>
+      </tr>`).join("");
+  } catch(e){ toast(e.message, true); }
+}
+
+async function deleteLedger(id){
+  if (!confirm("Delete this entry? This can't be undone.")) return;
+  try { await api("/api/ledger/" + id, { method: "DELETE" }); toast("Entry deleted."); loadLedger(); }
+  catch(e){ toast(e.message, true); }
+}
+
+/* ---------- boot ---------- */
+async function refreshAll(){ await Promise.all([loadOverview()]); }
+(function init(){
+  const savedHelp = localStorage.getItem(HELP_KEY);
+  $("help-on").checked = savedHelp !== "0";
+  refreshHelp();
+  const saved = sessionStorage.getItem(TOKEN_KEY);
+  if (saved) { TOKEN = saved; enterPanel(); }
+})();
+</script>
+</body>
+</html>
