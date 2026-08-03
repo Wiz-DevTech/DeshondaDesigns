@@ -26,6 +26,7 @@
     }
   ],
   "vars": {
-    "ALLOWED_ORIGIN": "*"
+    "ALLOWED_ORIGIN": "*",
+    "SERVICE_FEE_PERCENT": "10"
   }
 }

