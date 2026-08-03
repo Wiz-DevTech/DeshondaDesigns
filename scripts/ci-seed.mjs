@@ -30,7 +30,9 @@ if (!TOKEN || !ACCOUNT) {
   process.exit(1);
 }
 
-const raw = await readFile(new URL("../wrangler.jsonc", import.meta.url), "utf8");
+const raw = (await readFile(new URL("../wrangler.jsonc", import.meta.url), "utf8"))
+  .replace(/^\s*\/\/.*$/gm, "") // strip // line comments (JSONC)
+  .replace(/\/\*[\s\S]*?\*\//g, ""); // strip /* */ block comments
 const cfg = JSON.parse(raw);
 const dbId = cfg.d1_databases?.[0]?.database_id;
 if (!dbId) {
@@ -58,8 +60,8 @@ async function query(sql, params = []) {
 const schema = await readFile(new URL("../worker/schema.sql", import.meta.url), "utf8");
 const statements = schema
   .split(";")
-  .map((s) => s.trim())
-  .filter((s) => s && !s.startsWith("--"));
+  .map((s) => s.replace(/^\s*--.*$/gm, "").trim()) // strip comment lines, keep the SQL
+  .filter((s) => s.length > 0);
 for (const sql of statements) {
   await query(sql);
   console.log(`schema: ${sql.slice(0, 70)}...`);
