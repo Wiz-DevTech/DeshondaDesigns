@@ -4,7 +4,7 @@ import { useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 
 export default function Share() {
-  const [url, setUrl] = useState("");
+  const [url, setUrl] = useState("https://deshondadesigns.store");
 
   return (
     <section id="share" className="px-[6vw] py-24 max-w-[1180px] mx-auto">

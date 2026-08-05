@@ -42,7 +42,7 @@ export default function Footer() {
           placeholder="Your name"
           value={name}
           onChange={(e) => setName(e.target.value)}
-          className="flex-1 min-w-[200px] px-4 py-3 rounded text-[var(--ink)]"
+          className="flex-1 min-w-[200px] px-4 py-3 rounded text-[var(--ink)] bg-[var(--sand)] placeholder:text-[#8a7a68]"
         />
         <input
           type="email"
@@ -50,7 +50,7 @@ export default function Footer() {
           placeholder="you@email.com"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          className="flex-1 min-w-[200px] px-4 py-3 rounded text-[var(--ink)]"
+          className="flex-1 min-w-[200px] px-4 py-3 rounded text-[var(--ink)] bg-[var(--sand)] placeholder:text-[#8a7a68]"
         />
         <button
           type="submit"
@@ -78,6 +78,28 @@ export default function Footer() {
 
       <div className="mt-8 text-xs opacity-40">
         <a href="/admin.html" className="hover:opacity-100 hover:underline">Admin</a>
+      </div>
+
+      <div className="mt-10 text-xs opacity-80 leading-7">
+        <div>
+          Developed by{" "}
+          <a href="https://wizdevtech.com/" target="_blank" rel="noopener" className="underline hover:opacity-100">
+            WizDevTech Business Solutions
+          </a>
+        </div>
+        <div>
+          ✉️ Support Email:{" "}
+          <a href="mailto:support@wizdevtech.com" className="underline hover:opacity-100">
+            support@wizdevtech.com
+          </a>
+        </div>
+        <div>
+          Email DeShonda:{" "}
+          <a href="mailto:designsbydeshonda@gmail.com" className="underline hover:opacity-100">
+            designsbydeshonda@gmail.com
+          </a>
+        </div>
+        <div>© 2026 DeShonda Designs · DeShonda Davis. All rights reserved.</div>
       </div>
     </footer>
   );
